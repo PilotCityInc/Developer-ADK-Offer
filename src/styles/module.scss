@@ -1,0 +1,171 @@
+@import "./Module/edit.scss";
+@import "./Module/instruct.scss";
+@import "./Module/edit.scss";
+@import "./Module/metrics.scss";
+@import "./Module/outcomes.scss";
+@import "./Module/default.scss";
+
+.module{ //! general
+  display: flex;
+  // justify-content: center;
+  margin-top: 12vh;
+  flex-direction:column;
+  align-items: center;
+  max-width: 700px;
+
+  &__container{
+    border-radius:25px;
+    margin-bottom: 9.4vh;
+    min-width: 308px;
+    width: 100%;
+    max-width: 700px;
+    border: 10px solid #bdbdbd;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__navbar{
+      // align-items: flex-end;
+      // justify-content: flex-end;
+    text-align:right;
+    // margin-left:auto;
+
+    margin-bottom: 1.4vh;
+
+    // min-width: 308px;
+    width: 100%;
+    max-width: 700px;
+
+    // display: flex;
+    // flex-direction: column;
+
+  }
+
+  &__settings-menu{
+    width:100%;
+    // text-align:left;
+    // justify-content:flex-start;
+    // align-items:flex-start;
+    // margin-right:auto;
+    text-align:left;
+  }
+
+  &__navbar-button{
+    margin-left: 15px;
+    // margin-right: 10px;
+
+  }
+}
+.module{ //! top part of module container
+  &__image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75px;
+    width: 75px;
+    // background-color: #dedede;
+    border: 2px solid #dedede;
+    position: absolute;
+    top: -25%;
+    background-color: #fff;
+  }
+  &__title{
+    position: relative;
+    min-height: 175px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    // border-bottom: 2px solid #dedede;
+    // padding-top: calc(50px/2);
+    grid-row: 1/2;
+    grid-column: 1;
+  }
+  &__header{
+    //TODO: change helper classes into css
+    //TODO: theme headers, base_font-size: 8px?
+    // margin-bottom: 15px;
+    flex-direction:column;
+    display:flex;
+    justify-content:flex-end;
+
+
+    &-chips{
+      padding-bottom:25px;
+      font-weight:700;
+      // text-transform: uppercase;
+      letter-spacing:.5px;
+      // font-size: 5px;
+    }
+
+
+    &-text{
+      display: flex;
+      min-height: 60px;
+      width: 100%;
+      max-width: 100%;
+      flex-wrap: wrap;
+      // padding: 10px 80px;
+      // border: .5px #4F4F4F solid;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size:30px;
+      text-align: center;
+    }
+
+    &-text-edit{
+margin:5px;
+    }
+  }
+  @media only screen and (max-width: 600px){
+    .module__image{
+      height: 75px;
+      width: 75px;
+      top: calc(-130px/2);
+    }
+  }
+}
+.module{ 
+ &__body{
+   
+ }
+ &__pagination{
+   max-width: 100%;
+   justify-content: center;
+   margin-bottom: 38px;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   grid-template-rows: 1fr;
+   & > div.active{
+     & .module__pagination-button{
+       color: #000;
+     }
+     & .module__pagination-button--active{
+       background-color: #000;
+     }
+   }
+   &-button{
+     &.v-btn.theme--light{
+       color: #BDBDBD;
+       width: 100%;
+       font-weight: 900;
+     }
+     &--active{
+       width: 100%;
+       height: 6px;
+       border-radius: 0px 0px 5px 5px;
+     }
+   }
+ }
+ &__page{
+   margin-bottom: 130px;
+ }
+  @media only screen and (max-width: 600px){
+    .module__pagination{
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr 1fr;
+    }
+    .module__page{
+      margin-bottom: 70px;
+    }
+  }
+}
