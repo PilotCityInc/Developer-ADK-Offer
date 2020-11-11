@@ -4,7 +4,7 @@ networks:
     driver: bridge
 services:
   microapp: #in container-based development
-    container_name: microapp
+    container_name: offer
     build: 
       context: .
       dockerfile: client.dockerfile 
@@ -18,7 +18,7 @@ services:
       - ./:/usr/src/app
       - usr/src/app/node_modules
     ports:
-      - 8080:8080
+      - 8002:8080
     stdin_open: true
     tty: true
     command: ["yarn","run","serve"]
