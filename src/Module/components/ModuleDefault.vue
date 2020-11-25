@@ -47,6 +47,11 @@
         You’ve won a position, congratulations. Please review, acknowledge and accept or decline the
         positon you have!
       </div>
+
+      <div class="module-edit__container-table">
+        <Table class="module-default__table-view"></Table>
+      </div>
+
       <div class="module-default__row">
         <div class="module-default__agreement">Internship Project</div>
         <div><v-checkbox></v-checkbox></div>
@@ -96,6 +101,7 @@
 <script lang="ts">
 import { ref } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
+import Table from './TableView.vue';
 
 export default {
   name: 'ModuleDefault',
@@ -119,6 +125,12 @@ export default {
 
 <style lang="scss">
 .module-default {
+  &__table-view {
+    width: 100%;
+    // padding-left: 10px;
+    // padding-right: 10px;
+    margin-bottom: 20px;
+  }
   &__agreement {
     font-family: Raleway;
     font-size: 15px;
