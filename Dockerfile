@@ -1,10 +1,6 @@
-# This dockerfile syncs container node modules with the client
+# This dockerfile is meant for in-container development
 FROM node:12.19.0
-RUN apt-get update -y && apt-get upgrade -y 
-RUN apt-get install rsync -y
-# Create and define the node_modules's cache directory.
-RUN mkdir /usr/src/cache
-WORKDIR /usr/src/cache
+WORKDIR /usr/src/app
 
 # Install the application's dependencies into the node_modules's cache directory.
 COPY package*.json ./
