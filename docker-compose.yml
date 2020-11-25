@@ -3,7 +3,7 @@ networks:
   pdk:
     driver: bridge
 services:
-  microapp: #in container-based development
+  offer: #in container-based development
     container_name: offer
     build: 
       context: .
