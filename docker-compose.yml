@@ -4,6 +4,7 @@ networks:
     driver: bridge
 services:
   offer: #in container-based development
+    image: pilotcity/boiler
     container_name: offer
     build: 
       context: .
