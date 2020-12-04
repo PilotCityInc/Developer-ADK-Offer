@@ -1,18 +1,27 @@
 <template>
-  <v-container class="module-edit">
-    <div class="module-edit__container">
-      <!-- <v-divider class="presets__divider"></v-divider> -->
-      <span class="module-setup__question-title">Ask question here for setup</span>
-      <v-text-field label="Example" value="Example" outlined></v-text-field>
-      <!-- NO SETUP NECESSARY / COMMENT OUT IF SETUP IS NECESSARY -->
-      <!-- <div class="module-setup__none">No setup necessary</div> -->
-      <!-- ENTER CONTENT HERE -->
-    </div>
-  </v-container>
+  <ValidationObserver v-slot="{}" slim>
+    <v-container class="module-edit">
+      <div class="module-edit__container">
+        <!-- <v-divider class="presets__divider"></v-divider> -->
+        <span class="module-setup__question-title">Ask question here for setup</span>
+        <validation-provider v-slot="{ errors }" slim rules="required">
+          <v-text-field
+            v-model="example"
+            :error-messages="errors"
+            label="Example"
+            outlined
+          ></v-text-field>
+        </validation-provider>
+        <!-- NO SETUP NECESSARY / COMMENT OUT IF SETUP IS NECESSARY -->
+        <!-- <div class="module-setup__none">No setup necessary</div> -->
+        <!-- ENTER CONTENT HERE -->
+      </div>
+    </v-container>
+  </ValidationObserver>
 </template>
 
 <script lang="ts">
-import { reactive, toRefs } from '@vue/composition-api';
+import { reactive, toRefs, ref } from '@vue/composition-api';
 // import gql from 'graphql-tag';
 
 export default {
@@ -20,8 +29,10 @@ export default {
 
   setup() {
     const setup = reactive({});
+    const example = ref('');
     return {
-      ...toRefs(setup)
+      ...toRefs(setup),
+      example
     };
   }
 };
