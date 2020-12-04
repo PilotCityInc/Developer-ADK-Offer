@@ -51,3 +51,21 @@ export const items = [
   { index: '17', activity: 'Offer', completion: '0%', updated: 'Oct 11 at 8:30pm' },
   { index: '18', activity: 'Results', completion: '0%', updated: 'Oct 16 at 8:30pm' }
 ];
+
+export const group = ['Setup', 'Project', 'Screening', 'Internship'];
+export const required = ['Creator requires this activity', 'Yes', 'No'];
+export const lockOrder = ['Creator locked activity group and placement order', 'Yes', 'No'];
+export const deliverable = ['Yes', 'No'];
+export const notifications = ['Creator turned on by default', 'Turn on', 'Turn off'];
+export const accessibility = [
+  'Creator has turned off accessibility anytime',
+  'Creator has turned on accessibility anytime',
+  'Yes',
+  'No'
+];
+export const endEarly = [
+  'Creator has not allowed participants to end early after this activity',
+  'Creator has allow end early option only at preset order placement',
+  'Yes',
+  'No'
+];
