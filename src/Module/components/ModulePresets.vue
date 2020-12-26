@@ -17,6 +17,7 @@
             :error-messages="errors"
             :items="group"
             label="What activity group does this belong to?"
+            disabled
             outlined
           ></v-select>
         </validation-provider>
@@ -25,6 +26,7 @@
             v-model="requiredActivity"
             :error-messages="errors"
             :items="required"
+            disabled
             label="Is this activity required for participants to complete?"
             outlined
           ></v-select>
@@ -40,6 +42,7 @@
             v-model="deliverableActivity"
             :error-messages="errors"
             :items="deliverable"
+            disabled
             label="Is this a deliverable?"
             outlined
           ></v-select>
@@ -53,6 +56,7 @@
           <v-select
             v-model="endEarlyActivity"
             :error-messages="errors"
+            disabled
             :items="endEarly"
             label="Allow participants to end program early after completion of this activity?"
             outlined
@@ -91,15 +95,7 @@
 <script lang="ts">
 import { reactive, ref, toRefs } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
-import {
-  group,
-  required,
-  lockOrder,
-  deliverable,
-  notifications,
-  accessibility,
-  endEarly
-} from './const';
+import { group, required, deliverable, endEarly } from './const';
 // import gql from 'graphql-tag';
 
 export default {
@@ -112,21 +108,14 @@ export default {
     const presets = reactive({
       group,
       required,
-      lockOrder,
       deliverable,
-      notifications,
-      accessibility,
       endEarly
     });
     const defaultActivity = reactive({
-      minutes: '',
-      groupActivity: '',
-      requiredActivity: '',
-      lockOrderActivity: '',
-      deliverableActivity: '',
-      notificationsActivity: '',
-      accessibilityActivity: '',
-      endEarlyActivity: ''
+      groupActivity: 'Internship',
+      requiredActivity: 'No',
+      deliverableActivity: 'No',
+      endEarlyActivity: 'Yes'
     });
     const setupInstructions = ref({
       description: '',

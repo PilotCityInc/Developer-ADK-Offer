@@ -52,7 +52,7 @@
         <Table class="module-default__table-view"></Table>
       </div>
 
-      <div class="module-default__row">
+      <!-- <div class="module-default__row">
         <div class="module-default__agreement">Internship Project</div>
         <div><v-checkbox></v-checkbox></div>
       </div>
@@ -83,12 +83,13 @@
       <div class="module-default__row">
         <div class="module-default__agreement">Start and end date of work</div>
         <div><v-checkbox></v-checkbox></div>
-      </div>
+      </div> -->
+
       <div class="module-default__second-statement">Deadline</div>
       <div class="module-default__main-statement">00:05:30</div>
-      <div class="module-default__row">
-        <v-btn x-large dark depressed>Accept</v-btn>
-        <v-btn x-large dark depressed>Reject</v-btn>
+      <div class="module-default__row__buttons">
+        <v-btn class="module-default__row__buttons-accept" x-large dark depressed>Accept</v-btn>
+        <v-btn class="module-default__row__buttons-reject" x-large dark depressed>Reject</v-btn>
       </div>
 
       <!-- ENTER CONTENT HERE -->
@@ -106,7 +107,8 @@ import Table from './TableView.vue';
 export default {
   name: 'ModuleDefault',
   components: {
-    Instruct
+    Instruct,
+    Table
   },
   apollo: {},
   data() {
@@ -125,6 +127,12 @@ export default {
 
 <style lang="scss">
 .module-default {
+  &__row__buttons {
+    &-accept {
+      margin-right: 120px;
+      margin-left: 120px;
+    }
+  }
   &__table-view {
     width: 100%;
     // padding-left: 10px;
