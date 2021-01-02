@@ -1,109 +1,84 @@
 <template>
-  <!--  TODO: make the inputs into actual components -->
-  <v-container class="module-instruct">
-    <div class="module-instruct__container">
-      <div class="module-instruct__description">
-        <div class="module-instruct__description-label">
-          <span>Goal</span>
+  <ValidationObserver v-slot="{ invalid }" slim>
+    <!--  TODO: make the inputs into actual components -->
+    <v-container class="module-instruct">
+      <div class="module-instruct__container">
+        <div class="module-instruct__description">
+          <div class="module-instruct__description-label">
+            <span>Goal</span>
+          </div>
+
+          <v-textarea
+            v-model="goal"
+            row-height="3"
+            rows="3"
+            outlined
+            class="font-weight-black text-body-1"
+          ></v-textarea>
         </div>
-        <div
-          :contenteditable="!readonly"
-          class="font-weight-black text-body-1"
-          @input="updateDesc($event)"
-        >
-          {{ description }}
-        </div>
-      </div>
-      <div class="module-instruct__instructions">
-        <div class="module-instruct__description-label">
-          <span>Instructions</span>
-        </div>
-        <div
-          v-for="(item, index) in instructions"
-          :key="item + index"
-          class="module-instruct__instructions-item"
-        >
-          <v-avatar
-            size="35"
-            class="module-instruct__instructions-av font-weight-black text-caption d-none d-sm-flex"
-          >
-            {{ index + 1 }}
-          </v-avatar>
+        <div class="module-instruct__instructions">
+          <div class="module-instruct__description-label">
+            <span>Instructions</span>
+          </div>
           <div
-            :contenteditable="!readonly"
-            class="module-instruct__instructions-text font-weight-black text-body-1"
+            v-for="(i, index) in offerInstructions"
+            :key="index"
+            class="module-instruct__instructions-item"
           >
-            {{ item }}
+            <v-avatar
+              size="35"
+              class="module-instruct__instructions-av font-weight-black text-caption d-none d-sm-flex"
+            >
+              {{ index + 1 }}
+            </v-avatar>
+
+            <validation-provider v-slot="{ errors }" slim rules="required">
+              <v-textarea
+                v-model="offerInstructions[index]"
+                row-height="3"
+                rows="1"
+                outlined
+                :error-messages="errors"
+                class="font-weight-black text-body-1"
+              ></v-textarea>
+            </validation-provider>
+          </div>
+
+          <div>
+            <v-btn
+              class="module-instruct__instructions-add font-weight-black text-body-1"
+              depressed
+              :disabled="invalid"
+              :ripple="false"
+              @click="populate()"
+            >
+              <v-icon class="module-instruct__instructions-add-icon"> mdi-plus </v-icon>
+            </v-btn>
           </div>
         </div>
-        <div
-          v-if="!readonly"
-          class="module-instruct__instructions-add font-weight-black text-body-1"
-        >
-          <v-icon class="module-instruct__instructions-add-icon"> mdi-plus </v-icon>
-        </div>
       </div>
-    </div>
-  </v-container>
+    </v-container>
+  </ValidationObserver>
 </template>
 
 <script lang="ts">
-import {
-  computed,
-  reactive,
-  WritableComputedRef,
-  toRefs,
-  defineComponent
-} from '@vue/composition-api';
+import { ref } from '@vue/composition-api';
 
-export default defineComponent({
+export default {
   name: 'ModuleInstruct',
-  model: {
-    prop: 'value',
-    event: 'input'
-  },
-  props: {
-    readonly: {
-      type: Boolean,
-      default: false
-    },
-    value: {
-      type: Object,
-      default: () => {
-        return {
-          description: '',
-          instructions: ['', '', '']
-        };
-      }
+  setup() {
+    const offerInstructions = ref(['']);
+    const goal = ref(['']);
+    function populate() {
+      offerInstructions.value.push('');
     }
-  },
-  apollo: {},
-  setup(props, { emit }) {
-    const description: WritableComputedRef<string> = computed({
-      get: () => props.value.description,
-      set: newVal => emit('input', newVal)
-    });
-    const instructions: WritableComputedRef<string[]> = computed({
-      get: () => props.value.instructions,
-      set: newVal => emit('input', instructions.value.concat(newVal))
-    });
-    const updateData = reactive({
-      updateDesc: (e: Event) => {
-        const target = e.target as HTMLElement;
-        description.value = target.innerText;
-      },
-      updateInstruction: (e: Event) => {
-        const target = e.target as HTMLElement;
-        instructions.value = [target.innerText];
-      }
-    });
-    return {
-      ...toRefs(updateData as any),
-      description,
-      instructions
-    };
+    return { offerInstructions, populate, goal };
   }
-});
+};
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.module-instruct__instructions-av {
+  margin-right: 3%;
+}
+</style>
