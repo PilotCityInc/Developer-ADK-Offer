@@ -2,15 +2,15 @@
   "author": "Juxsta",
   "license": "MIT",
   "main": "/dist/index.ts",
-  "name": "@PilotCityInc/pc-boiler-plate",
-  "version": "0.1.0",
+  "name": "@pilotcityinc/developer-adk-offer",
+  "version": "0.1.2",
   "description": "PilotCity Development Kit Template for creating your own Program Activities",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PilotCityInc/PilotCity-PDK-Boiler.git"
+    "url": "git+https://github.com/PilotCityInc/Developer-ADK-Offer"
   },
   "bugs": {
     "url": "https://github.com/PilotCityInc/PilotCity-PDK-Boiler/issues"
@@ -76,5 +76,8 @@
     "vue-cli-plugin-vuetify": "~2.0.7",
     "vue-template-compiler": "^2.6.12",
     "vuetify-loader": "^1.6.0"
+  },
+  "directories": {
+    "test": "tests"
   }
 }
