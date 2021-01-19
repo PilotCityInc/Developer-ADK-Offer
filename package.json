@@ -2,12 +2,9 @@
   "author": "Juxsta",
   "license": "MIT",
   "main": "/dist/index.ts",
-  "name": "@pilotcityinc/developer-adk-offer",
-  "version": "0.1.2",
+  "name": "developer-adk-offer",
+  "version": "1.0.0",
   "description": "PilotCity Development Kit Template for creating your own Program Activities",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PilotCityInc/Developer-ADK-Offer"

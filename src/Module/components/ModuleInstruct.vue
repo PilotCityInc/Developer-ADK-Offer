@@ -62,27 +62,27 @@
 </template>
 
 <script lang="ts">
-import { ref,defineComponent } from '@vue/composition-api';
+import { ref, defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'ModuleInstruct',
-  data: ()=>({
-      offerInstructions:[''],
-      goal:[''],
+  data: () => ({
+    offerInstructions: [''],
+    goal: ['']
   }),
-  methods:{
-      populate(){
-          this.offerInstructions.value.push('')
-      }
+  methods: {
+    populate() {
+      this.offerInstructions.value.push('');
+    }
   }
-//   setup() {
-//     const offerInstructions = ref(['']);
-//     const goal = ref(['']);
-//     function populate() {
-//       offerInstructions.value.push('');
-//     }
-//     return { offerInstructions, populate, goal };
-//   }
+  //   setup() {
+  //     const offerInstructions = ref(['']);
+  //     const goal = ref(['']);
+  //     function populate() {
+  //       offerInstructions.value.push('');
+  //     }
+  //     return { offerInstructions, populate, goal };
+  //   }
 });
 </script>
 

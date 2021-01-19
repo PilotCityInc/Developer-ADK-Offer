@@ -95,7 +95,7 @@
 <script lang="ts">
 import { reactive, ref, toRefs } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
-import * as presets from './const'
+import * as presets from './const';
 // import { group, required, deliverable, endEarly } from './const';
 // import gql from 'graphql-tag';
 
@@ -105,38 +105,41 @@ export default {
     Instruct
   },
   apollo: {},
-  data:()=>({
-      ...presets,
-       groupActivity: 'Internship',
-      requiredActivity: 'No',
-      deliverableActivity: 'No',
-      endEarlyActivity: 'Yes',
+  data: () => ({
+    ...presets,
+    groupActivity: 'Internship',
+    requiredActivity: 'No',
+    deliverableActivity: 'No',
+    endEarlyActivity: 'Yes',
+    setupInstructions: {
       description: '',
+
       instructions: ['', '', '']
-  }),
-//   setup() {
-    // const presets = reactive({
-    //   group,
-    //   required,
-    //   deliverable,
-    //   endEarly
-    // });
-//     const defaultActivity = reactive({
-//       groupActivity: 'Internship',
-//       requiredActivity: 'No',
-//       deliverableActivity: 'No',
-//       endEarlyActivity: 'Yes'
-//     });
-//     const setupInstructions = ref({
-//       description: '',
-//       instructions: ['', '', '']
-//     });
-//     return {
-//       ...toRefs(presets),
-//       setupInstructions,
-//       ...toRefs(defaultActivity)
-//     };
-//   }
+    }
+  })
+  //   setup() {
+  // const presets = reactive({
+  //   group,
+  //   required,
+  //   deliverable,
+  //   endEarly
+  // });
+  //     const defaultActivity = reactive({
+  //       groupActivity: 'Internship',
+  //       requiredActivity: 'No',
+  //       deliverableActivity: 'No',
+  //       endEarlyActivity: 'Yes'
+  //     });
+  //     const setupInstructions = ref({
+  //       description: '',
+  //       instructions: ['', '', '']
+  //     });
+  //     return {
+  //       ...toRefs(presets),
+  //       setupInstructions,
+  //       ...toRefs(defaultActivity)
+  //     };
+  //   }
 };
 </script>
 
