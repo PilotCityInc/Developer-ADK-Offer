@@ -26,15 +26,18 @@ import { reactive, toRefs, ref } from '@vue/composition-api';
 
 export default {
   name: 'ModuleSetup',
-
-  setup() {
-    const setup = reactive({});
-    const example = ref('');
-    return {
-      ...toRefs(setup),
-      example
-    };
-  }
+  data:()=>({
+      setup:{},
+      example:''
+  }),
+//   setup() {
+//     const setup = reactive({});
+//     const example = ref('');
+//     return {
+//       ...toRefs(setup),
+//       example
+//     };
+//   }
 };
 </script>
 
