@@ -1,5 +1,5 @@
 <template>
-  <v-container class="module-default__container">
+  <v-container>
     <div class="module-default__instructions">
       <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
         <v-expansion-panel>
@@ -41,7 +41,7 @@
       buffer-value="100"
       stream
     />
-    <div class="module-edit__container">
+    <div>
       <div class="module-default__main-statement">Congrats!</div>
       <div class="module-default__secondary-statement">
         You’ve won a position, congratulations. Please review, acknowledge and accept or decline the

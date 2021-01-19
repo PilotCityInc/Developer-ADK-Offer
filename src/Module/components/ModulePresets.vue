@@ -95,7 +95,8 @@
 <script lang="ts">
 import { reactive, ref, toRefs } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
-import { group, required, deliverable, endEarly } from './const';
+import * as presets from './const'
+// import { group, required, deliverable, endEarly } from './const';
 // import gql from 'graphql-tag';
 
 export default {
@@ -104,29 +105,38 @@ export default {
     Instruct
   },
   apollo: {},
-  setup() {
-    const presets = reactive({
-      group,
-      required,
-      deliverable,
-      endEarly
-    });
-    const defaultActivity = reactive({
-      groupActivity: 'Internship',
+  data:()=>({
+      ...presets,
+       groupActivity: 'Internship',
       requiredActivity: 'No',
       deliverableActivity: 'No',
-      endEarlyActivity: 'Yes'
-    });
-    const setupInstructions = ref({
+      endEarlyActivity: 'Yes',
       description: '',
       instructions: ['', '', '']
-    });
-    return {
-      ...toRefs(presets),
-      setupInstructions,
-      ...toRefs(defaultActivity)
-    };
-  }
+  }),
+//   setup() {
+    // const presets = reactive({
+    //   group,
+    //   required,
+    //   deliverable,
+    //   endEarly
+    // });
+//     const defaultActivity = reactive({
+//       groupActivity: 'Internship',
+//       requiredActivity: 'No',
+//       deliverableActivity: 'No',
+//       endEarlyActivity: 'Yes'
+//     });
+//     const setupInstructions = ref({
+//       description: '',
+//       instructions: ['', '', '']
+//     });
+//     return {
+//       ...toRefs(presets),
+//       setupInstructions,
+//       ...toRefs(defaultActivity)
+//     };
+//   }
 };
 </script>
 
