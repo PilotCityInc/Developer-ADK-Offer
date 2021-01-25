@@ -2,12 +2,9 @@
   "author": "Juxsta",
   "license": "MIT",
   "main": "/dist/index.ts",
-  "name": "@pilotcityinc/developer-adk-offer",
-  "version": "0.1.2",
+  "name": "developer-adk-offer",
+  "version": "1.0.2",
   "description": "PilotCity Development Kit Template for creating your own Program Activities",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/PilotCityInc/Developer-ADK-Offer"
@@ -28,7 +25,6 @@
     "@rollup/plugin-commonjs": "^16.0.0",
     "@types/mongodb": "^3.5.31",
     "@vue/cli": "^4.4.6",
-    "@vue/composition-api": "^1.0.0-beta.15",
     "apollo-boost": "^0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-link-context": "^1.0.20",
@@ -48,6 +44,9 @@
     "vue": "^2.6.12",
     "vue-apollo": "^3.0.4y",
     "vuetify": "^2.3.14"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.0.0-beta.15"
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
