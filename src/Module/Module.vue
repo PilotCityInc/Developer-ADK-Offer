@@ -265,9 +265,9 @@ body {
 }
 </style>
 <script lang="ts">
-import { computed, reactive, ref, toRefs, defineComponent } from '@vue/composition-api';
+import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue/composition-api';
 import '../styles/module.scss';
-// import { Collection } from 'mongodb';
+import { Collection } from 'mongodb';
 import * as Module from './components';
 
 export default defineComponent({
@@ -279,21 +279,41 @@ export default defineComponent({
     'module-presets': Module.Presets,
     'module-preview': Module.Default
   },
-  //   props: {
-  // programCollection: {
-  //   required: true,
-  //   type: Object as PropType<Collection>
-  // },
-  // programId: {
-  //   require: true,
-  //   type: String
-  // }
-  //   },
-  setup() {
-    //
-    // props.programCollection.findOne({
-    //   _id: props.programId
-    // });
+  props: {
+    programCollection: {
+      required: true,
+      type: Object as PropType<Collection>
+    },
+    programId: {
+      required: true,
+      type: String
+    },
+    offerQuestion: {
+      required: true,
+      type: String
+    },
+    offerGoal: {
+      required: true,
+      type: String
+    },
+    offerInstructions: {
+      required: true,
+      type: []
+    }
+  },
+  setup(props) {
+    
+    const programDoc = props.programCollection.findOne({
+      _id: props.programId
+    },
+    {projection: {adks:1}});
+
+    let offerQuestion = ref("")
+    let offerData = programDoc.adks.find((adk) => adk.name === "offer")
+    offerQuestion.value = offerData.offerQuestion
+
+    
+
     // ENTER ACTIVITY NAME BELOW
     const moduleName = ref('Offer');
     const page = reactive({
