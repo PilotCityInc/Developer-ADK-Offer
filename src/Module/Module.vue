@@ -159,28 +159,6 @@
             >
           </v-card>
         </v-menu>
-
-        <!-- ALL STAKEHOLDERS-->
-        <!-- <v-btn small disabled outlined depressed
-          ><v-icon left>mdi-message-reply-text</v-icon>Chat with all stakeholders</v-btn
-        > -->
-
-        <!-- FOR EMPLOYER ORGANIZERS -->
-        <!-- <v-btn disabled outlined depressed
-          ><v-icon left>mdi-message-reply-text</v-icon>Comment on student participant's
-          activity</v-btn
-        > -->
-        <!-- FOR STUDENT PARTICIPANTS: Ability to view and reply to employer, teacher, school and parent stakeholder comments -->
-        <!-- <v-btn small disabled outlined depressed
-          ><v-icon left>mdi-message-reply-text</v-icon>Chat with stakeholders and your
-          organizers</v-btn
-        > -->
-
-        <!-- FOR TEACHER, SCHOOL OR PARENT STAKEHOLDERS: Ability to view and reply to student and employer comments -->
-        <!-- <v-btn disabled outlined depressed
-          ><v-icon left>mdi-message-reply-text</v-icon>Comment on student participant's
-          activity</v-btn
-        > -->
         <v-timeline dense clipped>
           <v-timeline-item fill-dot class="white--text mb-12" color="pink" large>
             <template v-slot:icon>
@@ -237,64 +215,12 @@
               <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-up</v-icon></v-btn>
 
               <v-btn class="" icon><v-icon color="grey lighten-2">mdi-thumb-down</v-icon></v-btn>
-              <!-- 
+              <!--
               <v-btn x-small outlined depressed class="mx-0">Reply</v-btn>
 
               <v-btn small class="" icon><v-icon color="grey lighten-2">mdi-flag</v-icon></v-btn> -->
             </v-timeline-item>
           </v-slide-x-transition>
-
-          <!-- <v-timeline-item class="mb-6" hide-dot>
-            <span>TODAY</span>
-          </v-timeline-item>
-
-          <v-timeline-item class="mb-4" color="grey" icon-color="grey lighten-2" small>
-            <v-row justify="space-between">
-              <v-col cols="7"> This order was archived. </v-col>
-              <v-col class="text-right" cols="5"> 15:26 EDT </v-col>
-            </v-row>
-          </v-timeline-item>
-
-          <v-timeline-item class="mb-4" small>
-            <v-row justify="space-between">
-              <v-col cols="7">
-                <v-chip class="white--text ml-0" color="purple" label small> APP </v-chip>
-                Digital Downloads fulfilled 1 item.
-              </v-col>
-              <v-col class="text-right" cols="5"> 15:25 EDT </v-col>
-            </v-row>
-          </v-timeline-item>
-
-          <v-timeline-item class="mb-4" color="grey" small>
-            <v-row justify="space-between">
-              <v-col cols="7">
-                Order confirmation email was sent to John Leider (john@vuetifyjs.com).
-              </v-col>
-              <v-col class="text-right" cols="5"> 15:25 EDT </v-col>
-            </v-row>
-          </v-timeline-item>
-
-          <v-timeline-item class="mb-4" hide-dot>
-            <v-btn class="mx-0"> Resend Email </v-btn>
-          </v-timeline-item>
-
-          <v-timeline-item class="mb-4" color="grey" small>
-            <v-row justify="space-between">
-              <v-col cols="7">
-                A $15.00 USD payment was processed on PayPal Express Checkout
-              </v-col>
-              <v-col class="text-right" cols="5"> 15:25 EDT </v-col>
-            </v-row>
-          </v-timeline-item>
-
-          <v-timeline-item color="grey" small>
-            <v-row justify="space-between">
-              <v-col cols="7">
-                John Leider placed this order on Online Store (checkout #1937432132572).
-              </v-col>
-              <v-col class="text-right" cols="5"> 15:25 EDT </v-col>
-            </v-row>
-          </v-timeline-item> -->
         </v-timeline>
       </v-container>
     </template>
@@ -339,8 +265,9 @@ body {
 }
 </style>
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
-import '@/styles/module.scss';
+import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue/composition-api';
+import '../styles/module.scss';
+import { Collection } from 'mongodb';
 import * as Module from './components';
 
 export default defineComponent({
@@ -351,113 +278,106 @@ export default defineComponent({
     'module-presets': Module.Presets,
     'module-preview': Module.Default
   },
-  data: () => {
-    return {
-      events: [],
-      input: '',
-      nonce: 0,
-      moduleName: 'Offer',
+  props: {
+    programCollection: {
+      required: true,
+      type: Object as PropType<Collection>
+    },
+    programId: {
+      required: true,
+      type: String
+    },
+    offerQuestion: {
+      required: true,
+      type: String
+    },
+    offerGoal: {
+      required: true,
+      type: String
+    },
+    offerInstructions: {
+      required: true,
+      type: []
+    }
+  },
+  setup(props) {
+    
+    const programDoc = props.programCollection.findOne({
+      _id: props.programId
+    },
+    {projection: {adks:1}});
+
+    let offerQuestion = ref("")
+    let offerData = programDoc.adks.find((adk) => adk.name === "offer")
+    offerQuestion.value = offerData.offerQuestion
+
+    
+
+    // ENTER ACTIVITY NAME BELOW
+    const moduleName = ref('Offer');
+    const page = reactive({
       subpages: ['Setup', 'Presets', 'Monitor'],
-      currentPage: 'Setup',
+      currentPage: 'Setup'
+    });
+    const getComponent = computed(() => {
+      return `module-${page.currentPage.toLowerCase()}`;
+    });
+    const color = reactive({
       pilotcityColors: [
         ['#6eba80', '#3c9dcd', '#ea6764'],
         ['#eda1bf', '#fec34b', '#bdbdbd'],
         ['#ae90b0', '#f79961', '#000000']
       ],
-      selectedColor: '#ae90b0',
-      config: {
-        description: '',
-        instruct: ['']
-      },
-      menu: false
-    } as {
-      events: {
+      // ENTER ACTIVITY COLOR
+      selectedColor: '#ea6764'
+    });
+    const getColor = computed(() => {
+      return color.selectedColor.substring(0, 7);
+    });
+    const config = ref({
+      description: '',
+      instruct: ['']
+    });
+    const menu = ref(false);
+    // timeline
+    const timelineData = reactive({
+      events: [] as {
         id: number;
         text: string;
         time: string;
-      }[];
-      input: string;
-      nonce: number;
-      moduleName: string;
-      subpages: string[];
-      currentPage: string;
-      pilotcityColors: string[][];
-      selectedColor: string;
-      config: {
-        description: string;
-        instruct: string[];
-      };
-      menu: boolean;
-    };
-  },
-  computed: {
-    timeline(): Array<{
-      id: number;
-      text: string;
-      time: string;
-    }> {
-      return this.events.slice().reverse();
-    },
-    getComponent(): string {
-      return `module-${this.currentPage.toLowerCase()}`;
-    },
-    getColor(): string {
-      return this.selectedColor.substring(0, 7);
-    }
-  },
-  methods: {
-    comment() {
+      }[],
+      input: '',
+      nonce: 0
+    });
+    const timeline = computed(() => {
+      return timelineData.events.slice().reverse();
+    });
+    function comment() {
       const time = new Date().toTimeString();
-      this.events.push({
-        id: this.nonce,
-        text: this.input,
-        time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+      timelineData.events.push({
+        id: timelineData.nonce,
+        text: timelineData.input,
+        time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents) => {
           return ` ${contents
             .split(' ')
             .map((v: string) => v.charAt(0))
             .join('')}`;
         })
       });
-      this.input = '';
+      timelineData.input = '';
     }
+    return {
+      ...toRefs(color),
+      ...toRefs(page),
+      config,
+      moduleName,
+      menu,
+      getComponent,
+      getColor,
+      ...toRefs(timelineData),
+      timeline,
+      comment
+    };
   }
-
-  // setup() {
-  //   // ENTER ACTIVITY NAME BELOW
-  //   const moduleName = ref('Offer');
-  //   const page = reactive({
-  //     subpages: ['Setup', 'Presets', 'Monitor'],
-  //     currentPage: 'Setup'
-  //   });
-  //   const getComponent = computed(() => {
-  //     return `module-${page.currentPage.toLowerCase()}`;
-  //   });
-  //   const color = reactive({
-  //     pilotcityColors: [
-  //       ['#6eba80', '#3c9dcd', '#ea6764'],
-  //       ['#eda1bf', '#fec34b', '#bdbdbd'],
-  //       ['#ae90b0', '#f79961', '#000000']
-  //     ],
-  //     // ENTER ACTIVITY COLOR
-  //     selectedColor: '#ea6764'
-  //   });
-  //   const getColor = computed(() => {
-  //     return color.selectedColor.substring(0, 7);
-  //   });
-  //   const config = ref({
-  //     description: '',
-  //     instruct: ['']
-  //   });
-  //   const menu = ref(false);
-  //   return {
-  //     ...toRefs(color as any),
-  //     ...toRefs(page as any),
-  //     config,
-  //     moduleName,
-  //     menu,
-  //     getComponent,
-  //     getColor
-  //   };
-  // }
 });
 </script>
