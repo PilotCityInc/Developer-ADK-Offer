@@ -278,40 +278,38 @@ export default defineComponent({
     'module-presets': Module.Presets,
     'module-preview': Module.Default
   },
-  props: {
-    programCollection: {
-      required: true,
-      type: Object as PropType<Collection>
-    },
-    programId: {
-      required: true,
-      type: String
-    },
-    offerQuestion: {
-      required: true,
-      type: String
-    },
-    offerGoal: {
-      required: true,
-      type: String
-    },
-    offerInstructions: {
-      required: true,
-      type: []
-    }
-  },
-  setup(props) {
-    
-    const programDoc = props.programCollection.findOne({
-      _id: props.programId
-    },
-    {projection: {adks:1}});
+  // props: {
+  //   programCollection: {
+  //     required: true,
+  //     type: Object as PropType<Collection>
+  //   },
+  //   programId: {
+  //     required: true,
+  //     type: String
+  //   },
+  //   offerQuestion: {
+  //     required: true,
+  //     type: String
+  //   },
+  //   offerGoal: {
+  //     required: true,
+  //     type: String
+  //   },
+  //   offerInstructions: {
+  //     required: true,
+  //     type: []
+  //   }
+  // },
+  setup() // props
+  {
+    // const programDoc = props.programCollection.findOne({
+    //   _id: props.programId
+    // },
+    // {projection: {adks:1}});
 
-    let offerQuestion = ref("")
-    let offerData = programDoc.adks.find((adk) => adk.name === "offer")
-    offerQuestion.value = offerData.offerQuestion
-
-    
+    // let offerQuestion = ref("")
+    // let offerData = programDoc.adks.find((adk) => adk.name === "offer")
+    // offerQuestion.value = offerData.offerQuestion
 
     // ENTER ACTIVITY NAME BELOW
     const moduleName = ref('Offer');
