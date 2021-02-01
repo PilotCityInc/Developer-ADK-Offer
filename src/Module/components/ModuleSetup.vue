@@ -159,22 +159,12 @@
 
         <!-- BREAK -->
 
-        <div class="module-setup__question-title">How many days per week?</div>
-        <v-checkbox dense label="1 Day"></v-checkbox>
-        <v-checkbox dense label="2 Days"></v-checkbox>
-        <v-checkbox dense label="3 Days"></v-checkbox>
-        <v-checkbox dense label="4 Days"></v-checkbox>
-        <v-checkbox dense label="5 Days (Recommended)"></v-checkbox>
-        <!-- BREAK -->
-        <div class="module-setup__question-title">How many hours per day?</div>
-        <v-checkbox dense label="1 Hour"></v-checkbox>
-        <v-checkbox dense label="2 Hours"></v-checkbox>
-        <v-checkbox dense label="3 Hours"></v-checkbox>
-        <v-checkbox dense label="4 Hours"></v-checkbox>
-        <v-checkbox dense label="5 Hours"></v-checkbox>
-        <v-checkbox dense label="6 Hours"></v-checkbox>
-        <v-checkbox dense label="7 Hours (Recommended)"></v-checkbox>
-        <v-checkbox dense label="8 Hours"></v-checkbox>
+        <div class="module-setup__question-title">How many days & hours per week?</div>
+        <v-row class="d-flex mt-3">
+          <v-select :items="daysPerWeek" label="Days per week?" outlined></v-select>
+          <div class="ml-3 mr-3"></div>
+          <v-select :items="hoursPerDay" label="Hours per day?" outlined></v-select>
+        </v-row>
         <!-- BREAK -->
         <div class="module-setup__question-title">
           When is the last date for students to accept their offers?
@@ -281,6 +271,19 @@ export default {
       '$1,000',
       '$500',
       '$0'
+    ],
+
+    daysPerWeek: ['5 Days (Recommended)', '4 Days', '3 Days', '2 Days', '1 Day'],
+
+    hoursPerDay: [
+      '8 Hours',
+      '7 Hours (Recommended)',
+      '6 Hours',
+      '5 Hours',
+      '4 Hours',
+      '3 Hours',
+      '2 Hours',
+      '1 Hour'
     ]
   }),
   computed: {
