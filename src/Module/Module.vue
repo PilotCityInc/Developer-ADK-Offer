@@ -100,9 +100,7 @@
           </div>
         </div>
         <div class="module__page">
-          <keep-alive>
-            <component :is="getComponent" />
-          </keep-alive>
+          <keep-alive> <component :is="getComponent" v-model="programDoc" /> </keep-alive>
         </div>
       </div>
     </div>
@@ -269,6 +267,7 @@ import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue
 import '../styles/module.scss';
 import { Collection } from 'mongodb';
 import * as Module from './components';
+import MongoDoc from './types';
 
 export default defineComponent({
   name: 'ModuleName',
@@ -278,40 +277,35 @@ export default defineComponent({
     'module-presets': Module.Presets,
     'module-preview': Module.Default
   },
-  // props: {
-  //   programCollection: {
-  //     required: true,
-  //     type: Object as PropType<Collection>
-  //   },
-  //   programId: {
-  //     required: true,
-  //     type: String
-  //   },
-  //   offerQuestion: {
-  //     required: true,
-  //     type: String
-  //   },
-  //   offerGoal: {
-  //     required: true,
-  //     type: String
-  //   },
-  //   offerInstructions: {
-  //     required: true,
-  //     type: []
-  //   }
-  // },
-  setup() // props
-  {
-    // const programDoc = props.programCollection.findOne({
-    //   _id: props.programId
-    // },
-    // {projection: {adks:1}});
 
-    // let offerQuestion = ref("")
-    // let offerData = programDoc.adks.find((adk) => adk.name === "offer")
-    // offerQuestion.value = offerData.offerQuestion
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    }
+  },
 
+  setup(
+    props,
+    ctx // props
+  ) {
     // ENTER ACTIVITY NAME BELOW
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
+      return obj.name === 'offer';
+    });
+    if (index === -1) {
+      const initOffer = {
+        name: 'offer'
+      };
+      programDoc.value.data.adks.push(initOffer);
+    }
     const moduleName = ref('Offer');
     const page = reactive({
       subpages: ['Setup', 'Presets', 'Monitor'],
@@ -374,7 +368,8 @@ export default defineComponent({
       getColor,
       ...toRefs(timelineData),
       timeline,
-      comment
+      comment,
+      programDoc
     };
   }
 });

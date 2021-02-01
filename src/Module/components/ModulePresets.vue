@@ -13,7 +13,7 @@
 
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="groupActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.groupActivity"
             :error-messages="errors"
             :items="group"
             label="What activity group does this belong to?"
@@ -23,7 +23,7 @@
         </validation-provider>
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="requiredActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.requiredActivity"
             :error-messages="errors"
             :items="required"
             disabled
@@ -39,7 +39,7 @@
       ></v-select> -->
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="deliverableActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.deliverableActivity"
             :error-messages="errors"
             :items="deliverable"
             disabled
@@ -54,7 +54,7 @@
       ></v-select> -->
         <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
-            v-model="endEarlyActivity"
+            v-model="programDoc.data.adks[index].defaultActivity.endEarlyActivity"
             :error-messages="errors"
             disabled
             :items="endEarly"
@@ -93,9 +93,11 @@
 </template>
 
 <script lang="ts">
-import { reactive, ref, toRefs } from '@vue/composition-api';
+import { defineComponent, reactive, ref, toRefs, computed, PropType } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import * as presets from './const';
+import MongoDoc from '../types';
+import { group, required, deliverable, endEarly } from './const';
 // import { group, required, deliverable, endEarly } from './const';
 // import gql from 'graphql-tag';
 
@@ -104,42 +106,67 @@ export default {
   components: {
     Instruct
   },
-  apollo: {},
-  data: () => ({
-    ...presets,
-    groupActivity: 'Internship',
-    requiredActivity: 'No',
-    deliverableActivity: 'No',
-    endEarlyActivity: 'Yes',
-    setupInstructions: {
-      description: '',
 
-      instructions: ['', '', '']
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
     }
-  })
-  //   setup() {
-  // const presets = reactive({
-  //   group,
-  //   required,
-  //   deliverable,
-  //   endEarly
-  // });
-  //     const defaultActivity = reactive({
-  //       groupActivity: 'Internship',
-  //       requiredActivity: 'No',
-  //       deliverableActivity: 'No',
-  //       endEarlyActivity: 'Yes'
-  //     });
-  //     const setupInstructions = ref({
-  //       description: '',
-  //       instructions: ['', '', '']
-  //     });
-  //     return {
-  //       ...toRefs(presets),
-  //       setupInstructions,
-  //       ...toRefs(defaultActivity)
-  //     };
-  //   }
+  },
+
+  setup(props, ctx) {
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
+      return obj.name === 'offer';
+    });
+
+    const initOfferPresets = {
+      defaultActivity: {
+        groupActivity: 'Internship',
+        requiredActivity: 'No',
+        deliverableActivity: 'No',
+        endEarlyActivity: 'Yes',
+        required: false
+      }
+    };
+
+    programDoc.value.data.adks[index] = {
+      ...initOfferPresets,
+      ...programDoc.value.data.adks[index]
+    };
+
+    const loading = ref(false);
+    const errormsg = ref('');
+    async function save() {
+      loading.value = true;
+      try {
+        await programDoc.value.save();
+        errormsg.value = '';
+      } catch (err) {
+        errormsg.value = 'Could not save';
+      }
+      loading.value = false;
+    }
+    const setupInstructions = ref({
+      description: '',
+      instructions: ['', '', '']
+    });
+    return {
+      ...toRefs(presets),
+      setupInstructions,
+      loading,
+      save,
+      errormsg,
+      index,
+      programDoc
+    };
+  }
 };
 </script>
 

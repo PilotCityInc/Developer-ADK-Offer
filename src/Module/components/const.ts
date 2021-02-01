@@ -44,3 +44,61 @@ export const tableContents = [
   { questionaries: 'Min and max hours' },
   { questionaries: 'Start and end date of work' }
 ];
+
+export const minBudget = [
+  '$0',
+  '$250',
+  '$500',
+  '$750',
+  '$1,000',
+  '$1,500',
+  '$2,000',
+  '$2,500',
+  '$3,000',
+  '$3,500',
+  '$4,000',
+  '$4,500',
+  '$5,000',
+  '$6,000',
+  '$7,000',
+  '$8,0000',
+  '$9,000',
+  '$10,000'
+];
+
+export const maxBudget = [
+  '$10,000',
+  '$9,500',
+  '$9,000',
+  '$8,500',
+  '$8,000',
+  '$7,500',
+  '$7,000',
+  '$6,500',
+  '$6,000',
+  '$5,500',
+  '$5,000',
+  '$4,500',
+  '$4,000',
+  '$3,500',
+  '$3,000',
+  '$2,500',
+  '$2,0000',
+  '$1,500',
+  '$1,000',
+  '$500',
+  '$0'
+];
+
+export const daysPerWeek = ['5 Days (Recommended)', '4 Days', '3 Days', '2 Days', '1 Day'];
+
+export const hoursPerDay = [
+  '8 Hours',
+  '7 Hours (Recommended)',
+  '6 Hours',
+  '5 Hours',
+  '4 Hours',
+  '3 Hours',
+  '2 Hours',
+  '1 Hour'
+];

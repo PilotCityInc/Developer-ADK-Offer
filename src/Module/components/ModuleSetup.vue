@@ -208,99 +208,90 @@
 </template>
 
 <script lang="ts">
-import { reactive, toRefs, ref } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
+import MongoDoc from '../types';
+import { minBudget, maxBudget, daysPerWeek, hoursPerDay } from './const';
 // import gql from 'graphql-tag';
 
-export default {
+export default defineComponent({
   name: 'ModuleSetup',
-  data: () => ({
-    setup: {},
-    example: '',
-
-    workDates: ['2021-06-21', '2021-08-06'],
-    date: new Date().toISOString().substr(0, 10),
-    dateEnd: new Date().toISOString().substr(0, 10),
-    dateStart: new Date().toISOString().substr(0, 10),
-    menu: false,
-    modal: false,
-    modalStart: false,
-    modalEnd: false,
-    menu2: false,
-    startDate: ['2021-06-21'],
-    endDate: ['2021-08-06'],
-
-    minBudget: [
-      '$0',
-      '$250',
-      '$500',
-      '$750',
-      '$1,000',
-      '$1,500',
-      '$2,000',
-      '$2,500',
-      '$3,000',
-      '$3,500',
-      '$4,000',
-      '$4,500',
-      '$5,000',
-      '$6,000',
-      '$7,000',
-      '$8,0000',
-      '$9,000',
-      '$10,000'
-    ],
-    maxBudget: [
-      '$10,000',
-      '$9,500',
-      '$9,000',
-      '$8,500',
-      '$8,000',
-      '$7,500',
-      '$7,000',
-      '$6,500',
-      '$6,000',
-      '$5,500',
-      '$5,000',
-      '$4,500',
-      '$4,000',
-      '$3,500',
-      '$3,000',
-      '$2,500',
-      '$2,0000',
-      '$1,500',
-      '$1,000',
-      '$500',
-      '$0'
-    ],
-
-    daysPerWeek: ['5 Days (Recommended)', '4 Days', '3 Days', '2 Days', '1 Day'],
-
-    hoursPerDay: [
-      '8 Hours',
-      '7 Hours (Recommended)',
-      '6 Hours',
-      '5 Hours',
-      '4 Hours',
-      '3 Hours',
-      '2 Hours',
-      '1 Hour'
-    ]
-  }),
-  computed: {
-    dateRangeText() {
-      return this.workDates.join(' ~ ');
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
     }
-  }
+  },
+  setup(props, ctx) {
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
 
-  //   setup() {
-  //     const setup = reactive({});
-  //     const example = ref('');
-  //     return {
-  //       ...toRefs(setup),
-  //       example
-  //     };
-  //   }
-};
+    const index = programDoc.value.data.adks.findIndex(function findResearchObj(obj) {
+      return obj.name === 'research';
+    });
+    const initResearchSetup = {
+      research: [
+        {
+          internshipProject: '',
+          licenseRequirement: '',
+          employerRecord: '',
+          positionTitle: '',
+          continuation: '',
+          compensation: '',
+          minimumBudget: '',
+          maximumBudget: '',
+          internshipStart: '',
+          internshipEnd: '',
+          daysPerWeek: '',
+          hoursPerDay: '',
+          required: false
+        }
+      ]
+    };
+
+    const setup = reactive({
+      minBudget,
+      maxBudget,
+      daysPerWeek,
+      hoursPerDay
+    });
+
+    programDoc.value.data.adks[index] = {
+      ...initResearchSetup,
+      ...programDoc.value.data.adks[index]
+    };
+    // Handle Save
+    const loading = ref(false);
+    const errormsg = ref('');
+    async function save() {
+      loading.value = true;
+      try {
+        await programDoc.value.save();
+        errormsg.value = '';
+      } catch (err) {
+        errormsg.value = 'Could not save';
+      }
+      loading.value = false;
+    }
+
+    function populate() {
+      programDoc.value.data.adks[index].research.push(initResearchSetup.research[0]);
+    }
+
+    return {
+      ...toRefs(setup),
+      populate,
+      loading,
+      save,
+      errormsg,
+      index,
+      programDoc
+    };
+  }
+});
 </script>
 
 <style lang="scss">
