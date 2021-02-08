@@ -8,7 +8,7 @@
       hide-default-footer="true"
     >
       <template v-slot:item.complete>
-        <v-checkbox class="check-box"></v-checkbox>
+        <v-checkbox></v-checkbox>
       </template>
     </v-data-table>
   </div>

@@ -42,10 +42,12 @@
       stream
     />
     <div>
-      <div class="module-default__main-statement">Congrats!</div>
-      <div class="module-default__secondary-statement">
-        You’ve won a position, congratulations. Please review, acknowledge and accept or decline the
-        positon you have!
+      <div class="module-default__overall-statement">
+        <div class="module-default__secondary-statement">
+          <span class="module-default__main-statement">Congrats!</span>
+          You’ve won a position with your employer. Please review and agree to the following terms.
+          Accept or decline thereafter.
+        </div>
       </div>
 
       <div class="module-edit__container-table">
@@ -86,10 +88,22 @@
       </div> -->
 
       <div class="module-default__second-statement">Deadline</div>
-      <div class="module-default__main-statement">00:05:30</div>
+      <div class="module-default__countdown">
+        <iframe
+          width="350"
+          height="119"
+          src="https://w2.countingdownto.com/3451554"
+          frameborder="0"
+        ></iframe>
+      </div>
+
       <div class="module-default__row__buttons">
-        <v-btn class="module-default__row__buttons-accept" x-large dark depressed>Accept</v-btn>
-        <v-btn class="module-default__row__buttons-reject" x-large dark depressed>Reject</v-btn>
+        <v-btn class="module-default__row__buttons-reject" outlined x-large depressed
+          >Decline</v-btn
+        >
+        <v-btn color="green" class="module-default__row__buttons-accept" x-large dark depressed
+          >Accept</v-btn
+        >
       </div>
 
       <!-- ENTER CONTENT HERE -->
@@ -128,9 +142,13 @@ export default {
 <style lang="scss">
 .module-default {
   &__row__buttons {
+    // justify-content: center;
+    text-align: center;
     &-accept {
-      margin-right: 120px;
-      margin-left: 120px;
+      margin: 20px;
+    }
+    &-reject {
+      margin: 20px;
     }
   }
   &__table-view {
@@ -151,12 +169,42 @@ export default {
     display: flex;
     width: 75%;
   }
+
+  &__overall-statement {
+    text-align: center;
+    max-width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+  }
+
+  &__countdown {
+    font-family: Raleway;
+    font-size: 40px;
+    font-weight: 900;
+    text-align: center;
+    // margin: 20px;
+    margin-bottom: 5%;
+  }
+
   &__main-statement {
     font-family: Raleway;
-    font-size: 30px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 900;
     text-align: center;
+    // margin: 20px;
   }
+  &__secondary-statement {
+    font-family: Raleway;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    // margin-left: auto;
+    // margin-right: auto;
+    // max-width: 75%;
+    margin-bottom: 10%;
+  }
+
   &__second-statement {
     font-family: Raleway;
     font-size: 18px;
@@ -177,12 +225,12 @@ export default {
 
   &__collapse-divider {
     margin-top: 15px;
-    margin-bottom: 75px;
+    // margin-bottom: 75px;
     margin-right: none;
     margin-left: none;
     padding-right: none;
     padding-left: none;
-    width: 100%;
+    // width: 100%;
   }
 
   &__collapse-title {

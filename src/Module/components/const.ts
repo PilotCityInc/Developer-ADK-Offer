@@ -31,8 +31,8 @@ export const endEarly = [
 
 export const HEADER = [
   { text: 'Terms', align: 'start', value: 'terms', sortable: false, width: '25%' },
-  { text: 'Details', align: 'start', value: 'questionaries', sortable: false, width: '70%' },
-  { text: 'I agree', align: 'end', value: 'complete', sortable: false, width: '5%' }
+  { text: 'Details', align: 'start', value: 'questionaries', sortable: false, width: '60%' },
+  { text: 'I agree', align: 'start', value: 'complete', sortable: false, width: '10%' }
 ];
 
 export const tableContents = [
