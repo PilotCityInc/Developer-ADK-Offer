@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="module-default__container">
     <div class="module-default__instructions">
       <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
         <v-expansion-panel>
