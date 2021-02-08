@@ -4,9 +4,8 @@ networks:
     driver: bridge
 services:
   offer: #in container-based development
-    image: pilotcity/boiler
+    build: . #enable this when modifyingh dependencies
     container_name: offer
-    build: .
     environment:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true
