@@ -2,7 +2,7 @@
   <!--  TODO: make the inputs into actual components -->
   <v-container class="module">
     <div class="module__navbar">
-      <v-btn
+      <!-- <v-btn
         v-if="currentPage == 'preview'"
         dark
         class="module__navbar-button"
@@ -11,7 +11,7 @@
         color="grey lighten-1"
         rounded
         >00:00:00</v-btn
-      >
+      > -->
       <v-btn
         v-if="currentPage != 'preview'"
         class="module__navbar-button"
@@ -32,6 +32,8 @@
         @click="currentPage = 'setup'"
         >Exit Preview</v-btn
       >
+
+      <!-- COMMENT OUT UNTIL VERSION WHERE CUSTOMIZABILITY IS ALLOWED -->
 
       <!-- <v-menu v-if="currentPage != 'preview'" offset-y left>
         <template v-slot:activator="{ on, attrs }">
@@ -68,9 +70,9 @@
           <v-icon light x-large :color="selectedColor">mdi-offer</v-icon>
         </div>
         <div class="module__header text-md-h5 text-sm-subtitle-1 d-flex align-center">
-          <input :value="moduleName" type="text" class="module__header-text" />
+          <input disabled :value="moduleName" type="text" class="module__header-text" />
           <v-chip-group class="module__header-chips"
-            ><v-chip disabled dark small color="white">Preset Tags</v-chip>
+            ><v-chip color="white" disabled dark x-small>Preset Tags</v-chip>
           </v-chip-group>
         </div>
       </div>
