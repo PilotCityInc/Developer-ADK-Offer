@@ -193,6 +193,7 @@ export default {
     font-weight: 900;
     text-align: center;
     // margin: 20px;
+    color: rgb(234, 103, 100);
   }
   &__secondary-statement {
     font-family: Raleway;
