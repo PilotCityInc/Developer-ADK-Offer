@@ -128,8 +128,8 @@ export default defineComponent({
     };
 
     function populate() {
-      programDoc.value.data.adks[index].rfp.push(initOfferSetup.offer[0]);
-      programDoc.value.data.adks[index].rfp.push(tableContents.offer[0]);
+      programDoc.value.data.adks[index].offer.push(initOfferSetup.offer[0]);
+      programDoc.value.data.adks[index].offer.push(tableContents.offer[0]);
     }
 
     // function populate() {
