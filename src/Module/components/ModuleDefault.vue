@@ -114,18 +114,18 @@
 </template>
 
 <script lang="ts">
-import { ref } from '@vue/composition-api';
+import { ref, defineComponent } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 
-export default {
+export default defineComponent({
   name: 'ModuleDefault',
   components: {
     Instruct,
     Table
   },
-  apollo: {},
-  data() {
+  // apollo: {},
+  setup() {
     const setupInstructions = ref({
       description: '',
       instructions: ['', '', '']
@@ -136,7 +136,7 @@ export default {
       showInstructions
     };
   }
-};
+});
 </script>
 
 <style lang="scss">
