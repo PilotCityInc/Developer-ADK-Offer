@@ -157,12 +157,7 @@
 
         <v-row class="d-flex">
           <v-col class="mt-3">
-            <v-dialog
-              ref="dialog"
-              v-model="modalStart"
-              :return-value.sync="dateStart"
-              width="290px"
-            >
+            <v-dialog ref="dialog" width="290px">
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="programDoc.data.adks[index].internshipStart"
@@ -176,14 +171,26 @@
               </template>
               <v-date-picker v-model="programDoc.data.adks[index].internshipStart" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modalStart = false"> Cancel </v-btn>
-                <v-btn text color="primary" @click="$refs.dialog.save(dateStart)"> OK </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="programDoc.data.adks[index].internshipStart = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog.save(programDoc.data.adks[index].internshipStart)"
+                >
+                  OK
+                </v-btn>
               </v-date-picker>
             </v-dialog>
           </v-col>
 
           <v-col class="mt-3">
-            <v-dialog ref="dialog" v-model="modalEnd" :return-value.sync="dateEnd" width="290px">
+            <v-dialog ref="dialog" width="290px">
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="programDoc.data.adks[index].internshipEnd"
@@ -197,8 +204,20 @@
               </template>
               <v-date-picker v-model="programDoc.data.adks[index].internshipEnd" scrollable>
                 <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="modalEnd = false"> Cancel </v-btn>
-                <v-btn text color="primary" @click="$refs.dialog.save(dateEnd)"> OK </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="programDoc.data.adks[index].internshipEnd = false"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog.save(programDoc.data.adks[index].internshipEnd)"
+                >
+                  OK
+                </v-btn>
               </v-date-picker>
             </v-dialog>
           </v-col>
@@ -300,11 +319,11 @@ export default defineComponent({
       }
     });
 
-    const index = programDoc.value.data.adks.findIndex(function findResearchObj(obj) {
-      return obj.name === 'research';
+    const index = programDoc.value.data.adks.findIndex(function findOfferhObj(obj) {
+      return obj.name === 'Offer';
     });
-    const initResearchSetup = {
-      research: [
+    const initOfferSetup = {
+      offer: [
         {
           internshipProject1: '',
           internshipProject2: '',
@@ -344,7 +363,7 @@ export default defineComponent({
     });
 
     programDoc.value.data.adks[index] = {
-      ...initResearchSetup,
+      ...initOfferSetup,
       ...programDoc.value.data.adks[index]
     };
     // Handle Save
@@ -362,7 +381,7 @@ export default defineComponent({
     }
 
     function populate() {
-      programDoc.value.data.adks[index].research.push(initResearchSetup.research[0]);
+      programDoc.value.data.adks[index].research.push(initOfferSetup.offer[0]);
     }
 
     return {
