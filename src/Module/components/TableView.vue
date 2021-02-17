@@ -129,7 +129,11 @@ export default defineComponent({
 
     function populate() {
       programDoc.value.data.adks[index].offer.push(initOfferSetup.offer[0]);
+<<<<<<< HEAD
       programDoc.value.data.adks[index].offer.push(tableContents.offer[0]);
+=======
+      programDoc.value.data.adks[index].offer.push(tableContents);
+>>>>>>> 389c7fca4fa89ebc0058c141a426cb2a7fb7f89a
     }
 
     // function populate() {
