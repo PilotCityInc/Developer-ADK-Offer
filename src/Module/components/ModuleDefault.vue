@@ -148,6 +148,7 @@ export default defineComponent({
     });
 
     const initOfferSetup = {
+      name: 'offer',
       offer: [
         {
           internshipProject1: false,
