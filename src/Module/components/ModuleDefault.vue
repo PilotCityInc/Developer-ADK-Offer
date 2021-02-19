@@ -51,7 +51,7 @@
       </div>
 
       <div class="module-edit__container-table">
-        <Table class="module-default__table-view"></Table>
+        <Table v-model="programDoc" class="module-default__table-view"></Table>
       </div>
 
       <!-- <div class="module-default__row">
@@ -114,9 +114,10 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType, reactive } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
+import MongoDoc from '../types';
 
 export default defineComponent({
   name: 'ModuleDefault',
@@ -124,8 +125,71 @@ export default defineComponent({
     Instruct,
     Table
   },
-  // apollo: {},
-  setup() {
+  props: {
+    value: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    }
+  },
+
+  setup(props, ctx) {
+    // props
+    const programDoc = computed({
+      get: () => props.value,
+      set: newVal => {
+        ctx.emit('input', newVal);
+      }
+    });
+
+    // console.log(programDoc.value);
+
+    const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
+      return obj.name === 'offer';
+    });
+
+    const initOfferSetup = {
+      offer: [
+        {
+          internshipProject1: false,
+          internshipProject2: false,
+          internshipProject3: false,
+          licenseRequirement: '',
+          employerRecord: '',
+          intern: false,
+          fellow: false,
+          eir: false,
+          apprentice: false,
+          preApprentice: false,
+          preInternship: false,
+          continuation: false,
+          compensation1: false,
+          compensation2: false,
+          compensation3: false,
+          compensation4: false,
+          compensation5: false,
+          compensation6: false,
+          minimumBudget: '',
+          maximumBudget: '',
+          internshipStart: '',
+          internshipEnd: '',
+          daysPerWeek: '',
+          hoursPerDay: '',
+          acceptanceDeadline: '',
+          required: false
+        }
+      ]
+    };
+
+    programDoc.value.data.adks[index] = {
+      ...initOfferSetup,
+      ...programDoc.value.data.adks[index]
+    };
+
+    function populate() {
+      programDoc.value.data.adks[index].offer.push(initOfferSetup.offer[0]);
+    }
+
+    // apollo: {},
     const setupInstructions = ref({
       description: '',
       instructions: ['', '', '']
@@ -133,7 +197,11 @@ export default defineComponent({
     const showInstructions = ref(true);
     return {
       setupInstructions,
-      showInstructions
+      showInstructions,
+      programDoc,
+      index,
+      populate,
+      initOfferSetup
     };
   }
 });
