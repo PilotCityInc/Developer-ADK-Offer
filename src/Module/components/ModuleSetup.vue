@@ -321,7 +321,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
-import { createLoader, getModAdk } from 'pcv4lib/src';
+import { createLoader } from 'pcv4lib/src';
 import MongoDoc from '../types';
 import { minBudget, maxBudget, daysPerWeek, hoursPerDay } from './const';
 // import gql from 'graphql-tag';

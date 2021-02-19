@@ -93,7 +93,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, computed, PropType } from '@vue/composition-api';
+import { defineComponent, ref, toRefs, computed, PropType } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import * as presets from './const';
 import MongoDoc from '../types';

@@ -114,7 +114,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType, reactive } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 import MongoDoc from '../types';

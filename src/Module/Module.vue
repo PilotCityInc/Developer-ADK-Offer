@@ -259,7 +259,6 @@ body {
 <script lang="ts">
 import { computed, reactive, ref, toRefs, defineComponent, PropType } from '@vue/composition-api';
 import '../styles/module.scss';
-import { Collection } from 'mongodb';
 import * as Module from './components';
 import MongoDoc from './types';
 

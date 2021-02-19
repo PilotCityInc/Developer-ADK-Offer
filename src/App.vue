@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
 // import ApolloExample from './components/ApolloExample.vue';
 import { defineComponent, Ref, ref } from '@vue/composition-api';
 import Module from './Module/Module.vue';

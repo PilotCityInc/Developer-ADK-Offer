@@ -1,7 +1,7 @@
 <template>
   <div class="table-view">
     <v-data-table
-      v-model="programDoc"
+      v-model="programDoc.data.adks[index].offer"
       :headers="header"
       :items="tableContents"
       sort-by="resource"
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType, reactive } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
 import { HEADER } from './const';
 import MongoDoc from '../types';
 
@@ -43,6 +43,7 @@ export default defineComponent({
     });
 
     const initOfferSetup = {
+      name: 'offer',
       offer: [
         {
           internshipProject1: false,
