@@ -13,7 +13,9 @@
           ></v-text-field>
         </validation-provider> -->
         <!-- BREAK -->
-        <div class="module-setup__question-title">What will be their internship project?</div>
+        <div class="module-setup__question-title">
+          What will be their internship project? Select at least one option.
+        </div>
         <validation-provider>
           <v-checkbox
             v-model="programDoc.data.adks[index].offer[0].internshipProject1"
@@ -36,22 +38,17 @@
           ></v-checkbox>
         </validation-provider>
         <!-- BREAK -->
-        <div class="module-setup__question-title">Is a driver's license or car required?</div>
+        <div class="module-setup__question-title">
+          Is a driver's license, car or transport to workplace required?
+        </div>
 
         <validation-provider>
           <v-radio-group v-model="programDoc.data.adks[index].offer[0].licenseRequirement">
-            <v-radio label="No (Recommended)"></v-radio>
+            <v-radio label="No (Recommended for digital internship)"></v-radio>
             <v-radio label="Yes"></v-radio>
           </v-radio-group>
         </validation-provider>
 
-        <!-- BREAK -->
-        <div class="module-setup__question-title">Who will be the employer-of-record?</div>
-
-        <v-radio-group v-model="programDoc.data.adks[index].offer[0].employerRecord">
-          <v-radio label="My organization"></v-radio>
-          <v-radio label="PilotCity (20% admin fee from total budget)"></v-radio>
-        </v-radio-group>
         <!-- BREAK -->
         <div class="module-setup__question-title">What position titles can you offer?</div>
         <v-checkbox
@@ -89,69 +86,6 @@
 
         <!-- BREAK -->
         <div class="module-setup__question-title">
-          Is there possibility of continuation or re-hire?
-        </div>
-
-        <v-radio-group v-model="programDoc.data.adks[index].offer[0].continuation">
-          <v-radio label="Yes (Recommended)"></v-radio>
-          <v-radio label="No"></v-radio>
-        </v-radio-group>
-        <!-- BREAK -->
-
-        <div class="module-setup__question-title">
-          What compensation arrangements can you offer?
-        </div>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation1"
-          dense
-          label="$250 Stipend (+20% PilotCity admin)"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation2"
-          dense
-          label="$350 Stipend (+20% PilotCity admin)"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation3"
-          dense
-          label="$500 Stipend (+20% PilotCity admin)"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation4"
-          dense
-          label="$595 Stipend (+20% PilotCity admin, Recommended)"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation5"
-          dense
-          label="W2 Employee (Minimum wage or more)"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="programDoc.data.adks[index].offer[0].compensation6"
-          dense
-          label="Unpaid ($0)"
-        ></v-checkbox>
-        <!-- BREAK -->
-        <div class="module-setup__question-title">
-          What is the minimum & maximum compensation budget?
-        </div>
-        <v-row class="d-flex mt-3">
-          <v-select
-            v-model="programDoc.data.adks[index].offer[0].minimumBudget"
-            :items="minBudget"
-            label="Minimum"
-            outlined
-          ></v-select>
-          <div class="ml-3 mr-3"></div>
-          <v-select
-            v-model="programDoc.data.adks[index].offer[0].maximumBudget"
-            :items="maxBudget"
-            label="Maximum"
-            outlined
-          ></v-select>
-        </v-row>
-        <!-- BREAK -->
-        <div class="module-setup__question-title">
           What is the Summer internship start & end date?
         </div>
 
@@ -167,6 +101,7 @@
               <template v-slot:activator="{ on, attrs }">
                 <v-text-field
                   v-model="programDoc.data.adks[index].offer[0].internshipStart"
+                  disabled
                   outlined
                   label="Start Date"
                   append-icon="mdi-calendar"
@@ -241,7 +176,7 @@
             label="Days per week?"
             outlined
           ></v-select>
-          <div class="ml-3 mr-3"></div>
+          <!-- <div class="ml-3 mr-3"></div> -->
           <v-select
             v-model="programDoc.data.adks[index].offer[0].hoursPerDay"
             :items="hoursPerDay"
@@ -249,17 +184,81 @@
             outlined
           ></v-select>
         </v-row>
+
+        <!-- BREAK -->
+        <div class="module-setup__question-title">Who will be the employer-of-record?</div>
+
+        <v-radio-group v-model="programDoc.data.adks[index].offer[0].employerRecord">
+          <v-radio label="My organization will run payroll"></v-radio>
+          <v-radio label="PilotCity (20% admin fee from total budget)"></v-radio>
+        </v-radio-group>
+        <!-- BREAK -->
+
+        <div class="module-setup__question-title">
+          What compensation options can you offer? Select at least one.
+        </div>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation1"
+          dense
+          label="$250 Stipend (+20% w/ PilotCity employer-of-record)"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation2"
+          dense
+          label="$350 Stipend (+20% w/ PilotCity employer-of-record)"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation3"
+          dense
+          label="$500 Stipend (+20% w/ PilotCity employer-of-record)"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation4"
+          dense
+          label="$595 Stipend (+20% w/ PilotCity employer-of-record, Recommended)"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation5"
+          dense
+          label="W2 Employee (Minimum wage or more)"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="programDoc.data.adks[index].offer[0].compensation6"
+          dense
+          label="Unpaid ($0)"
+        ></v-checkbox>
+        <!-- BREAK -->
+        <div class="module-setup__question-title">
+          What is the minimum & maximum compensation budget?
+        </div>
+        <v-row class="d-flex mt-3">
+          <v-select
+            v-model="programDoc.data.adks[index].offer[0].minimumBudget"
+            :items="minBudget"
+            label="Minimum"
+            outlined
+          ></v-select>
+          <div class="ml-3 mr-3"></div>
+          <v-select
+            v-model="programDoc.data.adks[index].offer[0].maximumBudget"
+            :items="maxBudget"
+            label="Maximum"
+            outlined
+          ></v-select>
+        </v-row>
+
         <!-- BREAK -->
         <div class="module-setup__question-title">
           When is the last date for students to accept their offers?
         </div>
 
         <v-col class="mt-3">
-          <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent width="290px">
+          <v-dialog ref="dialog" v-model="modal" :return-value.sync="date" persistent>
             <template v-slot:activator="{ on, attrs }">
               <v-text-field
                 v-model="programDoc.data.adks[index].offer[0].acceptanceDeadline"
                 outlined
+                disabled
                 label="Acceptance deadline"
                 append-icon="mdi-calendar"
                 readonly
@@ -277,6 +276,16 @@
             </v-date-picker>
           </v-dialog>
         </v-col>
+
+        <!-- BREAK -->
+        <div class="module-setup__question-title">
+          Is there possibility of continuation or re-hire?
+        </div>
+
+        <v-radio-group v-model="programDoc.data.adks[index].offer[0].continuation">
+          <v-radio label="Yes (Recommended)"></v-radio>
+          <v-radio label="No"></v-radio>
+        </v-radio-group>
 
         <!-- BREAK -->
 
@@ -339,31 +348,31 @@ export default defineComponent({
     const initOfferSetup = {
       offer: [
         {
-          internshipProject1: false,
-          internshipProject2: true,
+          internshipProject1: true,
+          internshipProject2: false,
           internshipProject3: false,
-          licenseRequirement: 1,
-          employerRecord: 1,
+          licenseRequirement: 0,
+          employerRecord: null,
           intern: true,
           fellow: true,
           eir: false,
           apprentice: false,
           preApprentice: false,
           preInternship: false,
-          continuation: 1,
+          continuation: 0,
           compensation1: false,
           compensation2: false,
           compensation3: false,
           compensation4: true,
           compensation5: false,
-          compensation6: false,
-          minimumBudget: '',
-          maximumBudget: '',
-          internshipStart: '',
-          internshipEnd: '',
-          daysPerWeek: '',
-          hoursPerDay: '',
-          acceptanceDeadline: '',
+          compensation6: true,
+          minimumBudget: '$1,000',
+          maximumBudget: '$5,000',
+          internshipStart: '2021-06-21',
+          internshipEnd: '2021-08-06',
+          daysPerWeek: '5 Days (Recommended)',
+          hoursPerDay: '7 Hours (Recommended)',
+          acceptanceDeadline: '2021-06-11',
           required: false
         }
       ]
