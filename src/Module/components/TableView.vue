@@ -278,11 +278,11 @@ export default defineComponent({
       },
       {
         terms: 'Days Per Week',
-        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].daysPerWeek} Days Per Week`
+        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].daysPerWeek} Per Week`
       },
       {
         terms: 'Hours Per Day',
-        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].hoursPerDay} Hours Per Day`
+        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].hoursPerDay} Per Day`
       }
     ];
 
