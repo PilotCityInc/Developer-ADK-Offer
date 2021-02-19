@@ -269,7 +269,8 @@ export default defineComponent({
     'module-monitor': Module.Monitor,
     'module-setup': Module.Setup,
     'module-presets': Module.Presets,
-    'module-preview': Module.Default
+    'module-preview': Module.Default,
+    'table-view': Module.Table
   },
 
   props: {

@@ -37,6 +37,7 @@
     "graphql-tag": "^2.9.0",
     "mongodb": "^3.6.2",
     "mongodb-stitch-browser-sdk": "^4.8.0",
+    "pcv4lib": "^1.0.10",
     "realm-web": "^0.7.0",
     "register-service-worker": "^1.7.1",
     "roboto-fontface": "*",

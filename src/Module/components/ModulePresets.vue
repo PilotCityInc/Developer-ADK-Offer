@@ -97,11 +97,11 @@ import { defineComponent, reactive, ref, toRefs, computed, PropType } from '@vue
 import Instruct from './ModuleInstruct.vue';
 import * as presets from './const';
 import MongoDoc from '../types';
-import { group, required, deliverable, endEarly } from './const';
+// import { group, required, deliverable, endEarly } from './const';
 // import { group, required, deliverable, endEarly } from './const';
 // import gql from 'graphql-tag';
 
-export default {
+export default defineComponent({
   name: 'ModulePresets',
   components: {
     Instruct
@@ -167,7 +167,7 @@ export default {
       programDoc
     };
   }
-};
+});
 </script>
 
 <style lang="scss">
