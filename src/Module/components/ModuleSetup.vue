@@ -322,12 +322,18 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
 import { createLoader } from 'pcv4lib/src';
+import { ValidationObserver, ValidationProvider } from '@/validation';
 import MongoDoc from '../types';
 import { minBudget, maxBudget, daysPerWeek, hoursPerDay } from './const';
+
 // import gql from 'graphql-tag';
 
 export default defineComponent({
   name: 'ModuleSetup',
+  components: {
+    ValidationProvider,
+    ValidationObserver
+  },
   props: {
     value: {
       required: true,

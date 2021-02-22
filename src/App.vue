@@ -22,6 +22,7 @@ export default defineComponent({
         adks: []
       },
       save: () => {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return new Promise((resolve, reject) => {
           setTimeout(() => {
             resolve(true);

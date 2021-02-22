@@ -186,10 +186,6 @@ export default defineComponent({
       ...programDoc.value.data.adks[index]
     };
 
-    function populate() {
-      programDoc.value.data.adks[index].offer.push(initOfferSetup.offer[0]);
-    }
-
     // apollo: {},
     const setupInstructions = ref({
       description: '',
@@ -201,7 +197,6 @@ export default defineComponent({
       showInstructions,
       programDoc,
       index,
-      populate,
       initOfferSetup
     };
   }

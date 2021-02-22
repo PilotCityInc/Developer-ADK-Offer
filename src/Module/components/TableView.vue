@@ -81,10 +81,6 @@ export default defineComponent({
       ...programDoc.value.data.adks[index]
     };
 
-    function populate() {
-      programDoc.value.data.adks[index].offer.push(initOfferSetup.offer[0]);
-    }
-
     let internshipProjectTerm1 = '';
     let internshipProjectTerm2 = '';
     let internshipProjectTerm3 = '';
@@ -290,8 +286,7 @@ export default defineComponent({
       programDoc,
       header: ref(HEADER),
       tableContents,
-      index,
-      populate
+      index
       // driversLicenseTerm,
     };
   }
