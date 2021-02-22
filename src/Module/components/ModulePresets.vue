@@ -146,7 +146,7 @@ export default defineComponent({
     async function save() {
       loading.value = true;
       try {
-        await programDoc.value.save();
+        await programDoc.value.update();
         errormsg.value = '';
       } catch (err) {
         errormsg.value = 'Could not save';

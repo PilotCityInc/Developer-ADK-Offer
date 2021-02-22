@@ -16,7 +16,6 @@
       "vuetify",
       "webpack-env",
       "jest",
-      "vuetify",
       "vue-cli-plugin-apollo/types"
     ],
     "typeRoots": [

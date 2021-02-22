@@ -2,6 +2,6 @@ export default interface MongoDoc {
   data: {
     adks: Record<string, any>[];
   };
-  save: () => Promise<any>;
+  update: () => Promise<any>;
   changeStream: any;
 }

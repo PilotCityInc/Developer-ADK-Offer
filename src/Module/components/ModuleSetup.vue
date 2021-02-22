@@ -272,7 +272,7 @@
             >
               <v-spacer></v-spacer>
               <v-btn text color="primary" @click="modal = false"> Cancel </v-btn>
-              <v-btn text color="primary" @click="$refs.dialog.save(date)"> OK </v-btn>
+              <v-btn text color="primary" @click="$refs.dialog.update(date)"> OK </v-btn>
             </v-date-picker>
           </v-dialog>
         </v-col>
@@ -414,7 +414,7 @@ export default defineComponent({
       programDoc,
       index,
       populate,
-      ...createLoader(programDoc.value.save, 'Saved Successfully', 'Could not save at this time'),
+      ...createLoader(programDoc.value.update, 'Saved Successfully', 'Could not save at this time'),
       date,
       modal,
       date1,
