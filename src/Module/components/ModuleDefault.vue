@@ -1,5 +1,5 @@
 <template>
-  <v-container class="module-default__container">
+  <v-container class="module-default">
     <div class="module-default__instructions">
       <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
         <v-expansion-panel>
@@ -257,7 +257,7 @@ export default defineComponent({
     font-weight: 900;
     text-align: center;
     // margin: 20px;
-    color: rgb(234, 103, 100);
+    color: #ae90b0;
   }
   &__secondary-statement {
     font-family: Raleway;

@@ -233,6 +233,34 @@ body {
 }
 
 .module {
+  &__pagination {
+    max-width: 100%;
+    justify-content: center;
+    margin-bottom: 38px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    & > div.active {
+      & .module__pagination-button {
+        color: #000;
+      }
+      & .module__pagination-button--active {
+        background-color: #000;
+      }
+    }
+    &-button {
+      &.v-btn.theme--light {
+        color: #bdbdbd;
+        width: 100%;
+        font-weight: 900;
+      }
+      &--active {
+        width: 100%;
+        height: 6px;
+        border-radius: 0px 0px 5px 5px;
+      }
+    }
+  }
   &__trash {
     // justify-content: start;
     align-items: start;
@@ -315,7 +343,7 @@ export default defineComponent({
         ['#ae90b0', '#f79961', '#000000']
       ],
       // ENTER ACTIVITY COLOR
-      selectedColor: '#ea6764'
+      selectedColor: '#ae90b0'
     });
     const getColor = computed(() => {
       return color.selectedColor.substring(0, 7);
