@@ -1,5 +1,5 @@
 <template>
-  <v-container class="module-default">
+  <div class="module-default">
     <div class="module-default__instructions">
       <v-expansion-panels v-model="showInstructions" class="module-default__instructions" flat>
         <v-expansion-panel>
@@ -110,7 +110,7 @@
       <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING -->
       <!-- <div class="module-default__none">Design your activity here</div> -->
     </div>
-  </v-container>
+  </div>
 </template>
 
 <script lang="ts">
