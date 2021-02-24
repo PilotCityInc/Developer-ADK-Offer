@@ -414,7 +414,7 @@ export default defineComponent({
       programDoc,
       index,
       populate,
-      ...createLoader(programDoc.value.update, 'Saved Successfully', 'Could not save at this time'),
+      ...createLoader(programDoc.value.update, 'Saved', 'Something went wrong, try again later'),
       date,
       modal,
       date1,
