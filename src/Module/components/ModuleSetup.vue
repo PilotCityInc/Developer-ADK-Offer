@@ -311,7 +311,7 @@
             >Save</v-btn
           >
         </div>
-        <v-alert v-if="success || error" :type="success ? 'success' : 'error'">{{
+        <v-alert v-if="success || error" class="mt-3" :type="success ? 'success' : 'error'">{{
           message
         }}</v-alert>
       </div>
