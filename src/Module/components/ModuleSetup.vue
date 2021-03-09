@@ -321,7 +321,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType, toRefs, reactive } from '@vue/composition-api';
-import { createLoader } from 'pcv4lib/src';
+import { loading } from 'pcv4lib/src';
 import { ValidationObserver, ValidationProvider } from '@/validation';
 import MongoDoc from '../types';
 import { minBudget, maxBudget, daysPerWeek, hoursPerDay } from './const';
@@ -414,7 +414,7 @@ export default defineComponent({
       programDoc,
       index,
       populate,
-      ...createLoader(programDoc.value.update, 'Saved', 'Something went wrong, try again later'),
+      ...loading(programDoc.value.update, 'Saved', 'Something went wrong, try again later'),
       date,
       modal,
       date1,

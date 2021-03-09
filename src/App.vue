@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Module v-model="programDocStub" />
+    <Module v-model="programDocStub" :user-type="userTypeStub" />
   </v-app>
 </template>
 
@@ -32,8 +32,11 @@ export default defineComponent({
       },
       changeStream: {}
     });
+    const userTypeStub = 'organizer';
+
     return {
-      programDocStub
+      programDocStub,
+      userTypeStub
     };
   }
 });

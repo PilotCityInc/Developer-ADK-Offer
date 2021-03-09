@@ -12613,10 +12613,10 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-pcv4lib@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/pcv4lib/-/pcv4lib-1.0.10.tgz#001c1786a0d30fa9db9964ed3f3e451c7599de7d"
-  integrity sha512-JXhcZ5hRknT+rz/j+GebadnNliPXWZSB7unFzGWA8lhJcwsfEFmTuWh8t5Zu9BfxpceSb+5M9X4WOK2schpx2A==
+pcv4lib@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/pcv4lib/-/pcv4lib-1.0.12.tgz#693523e1a983a821b526f59fc531d07720e0b95e"
+  integrity sha512-s7U3Q4YUc+fU4DUFGZ9HDoZ5prwxxkx/V/rPIsiP23wUfNsQm2Dt8YaPca0YV7z8n6tbewEtKR2UhtiWG50z4w==
 
 pend@~1.2.0:
   version "1.2.0"
