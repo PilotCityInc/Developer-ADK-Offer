@@ -358,7 +358,7 @@ export default defineComponent({
           internshipProject2: false,
           internshipProject3: false,
           licenseRequirement: 0,
-          employerRecord: null,
+          employerRecord: 0,
           intern: true,
           fellow: true,
           eir: false,

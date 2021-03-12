@@ -5,7 +5,7 @@
         <!-- <v-divider class="presets__divider"></v-divider> -->
         <div class="presets__section-title">General</div>
         <div class="presets__nopresets">No tweaking necessary</div>
-        <v-divider class="presets__divider"></v-divider>
+        <!-- <v-divider class="presets__divider"></v-divider>
         <div class="presets__section-title">Instructions</div>
         <Instruct v-model="setupInstructions" />
         <v-divider class="presets__divider"></v-divider>
@@ -30,14 +30,14 @@
             label="Is this activity required for participants to complete?"
             outlined
           ></v-select>
-        </validation-provider>
+        </validation-provider> -->
 
         <!-- <v-select
         :items="lockOrder"
         label="Lock activity group and placement order?"
         outlined
       ></v-select> -->
-        <validation-provider v-slot="{ errors }" slim rules="required">
+        <!-- <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
             v-model="programDoc.data.adks[index].defaultActivity.deliverableActivity"
             :error-messages="errors"
@@ -46,13 +46,13 @@
             label="Is this a deliverable?"
             outlined
           ></v-select>
-        </validation-provider>
+        </validation-provider> -->
         <!-- <v-select
         :items="accessibility"
         label="Make this activity accessible to participants anytime?"
         outlined
       ></v-select> -->
-        <validation-provider v-slot="{ errors }" slim rules="required">
+        <!-- <validation-provider v-slot="{ errors }" slim rules="required">
           <v-select
             v-model="programDoc.data.adks[index].defaultActivity.endEarlyActivity"
             :error-messages="errors"
@@ -61,7 +61,7 @@
             label="Allow participants to end program early after completion of this activity?"
             outlined
           ></v-select>
-        </validation-provider>
+        </validation-provider> -->
         <!-- POST-ACTIVITY REFLECTION -->
         <!-- <v-text-field
         label="Post-Activity Reflection"
@@ -73,7 +73,7 @@
         <v-btn class="presets__reflection-buttons" small depressed outlined>Save</v-btn>
         <v-btn class="presets__reflection-buttons" small depressed outlined>Preview</v-btn>
       </div> -->
-        <v-divider class="presets__divider"></v-divider>
+        <!-- <v-divider class="presets__divider"></v-divider> -->
         <!-- If activity is required, show button below, make tooltip show up while disabled, right now tooltip doesn't show up -->
         <!-- <div>
         <v-tooltip bottom>
@@ -84,9 +84,9 @@
         </v-tooltip>
       </div> -->
         <!-- Delete break when the two delete buttons above and below have been integrated as one solution -->
-        <br />
+        <!-- <br /> -->
         <!-- If activity is optional, show button below -->
-        <div><v-btn disabled color="red" dark depressed>Delete Activity</v-btn></div>
+        <!-- <div><v-btn disabled color="red" dark depressed>Delete Activity</v-btn></div> -->
       </div>
     </v-container>
   </ValidationObserver>
@@ -94,7 +94,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, computed, PropType } from '@vue/composition-api';
-import Instruct from './ModuleInstruct.vue';
+// import Instruct from './ModuleInstruct.vue';
 import * as presets from './const';
 import MongoDoc from '../types';
 // import { group, required, deliverable, endEarly } from './const';
@@ -104,7 +104,7 @@ import MongoDoc from '../types';
 export default defineComponent({
   name: 'ModulePresets',
   components: {
-    Instruct
+    // Instruct
   },
 
   props: {
