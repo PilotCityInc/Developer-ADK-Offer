@@ -72,10 +72,7 @@
           <v-icon light x-large :color="selectedColor">mdi-offer</v-icon>
         </div>
         <div class="module__header text-md-h5 text-sm-subtitle-1 d-flex align-center">
-          <input disabled :value="moduleName" type="text" class="module__header-text" />
-          <v-chip-group class="module__header-chips"
-            ><v-chip color="white" disabled dark x-small>Preset Tags</v-chip>
-          </v-chip-group>
+          <input disabled :value="moduleName" type="text" class="module__header-text mb-5" />
         </div>
       </div>
       <div class="module__body">
