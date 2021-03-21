@@ -87,7 +87,7 @@
         <div><v-checkbox></v-checkbox></div>
       </div> -->
 
-      <div class="module-default__second-statement">Deadline</div>
+      <div class="module-default__second-statement mt-10">Deadline</div>
       <div class="module-default__countdown">
         <iframe
           width="350"
@@ -98,10 +98,21 @@
       </div>
 
       <div class="module-default__row__buttons">
-        <v-btn class="module-default__row__buttons-reject" outlined x-large depressed
+        <v-btn
+          class="module-default__row__buttons-reject"
+          outlined
+          x-large
+          depressed
+          :disabled="userType === 'stakeholder'"
           >Decline</v-btn
         >
-        <v-btn color="green" class="module-default__row__buttons-accept" x-large dark depressed
+        <v-btn
+          color="green"
+          class="module-default__row__buttons-accept"
+          x-large
+          dark
+          depressed
+          :disabled="userType === 'stakeholder'"
           >Accept</v-btn
         >
       </div>
