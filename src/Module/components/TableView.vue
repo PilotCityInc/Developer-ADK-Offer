@@ -9,7 +9,7 @@
       :hide-default-footer="true"
     >
       <template v-slot:item.complete>
-        <v-checkbox></v-checkbox>
+        <v-checkbox :readonly="userType === 'stakeholder'"></v-checkbox>
       </template>
     </v-data-table>
   </div>
