@@ -304,6 +304,7 @@
             center
             class="mt-12"
             x-large
+            rounded
             outlined
             depressed
             :loading="loading"
