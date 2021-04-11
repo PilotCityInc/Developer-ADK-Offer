@@ -312,9 +312,13 @@
             >Save</v-btn
           >
         </div>
-        <v-alert v-if="success || error" class="mt-3" :type="success ? 'success' : 'error'">{{
-          message
-        }}</v-alert>
+        <v-alert
+          v-if="success || error"
+          dense
+          class="mt-3 white--text presets__alert"
+          :color="success ? 'green' : 'red'"
+          >{{ message }}</v-alert
+        >
       </div>
     </v-container>
   </ValidationObserver>
@@ -415,7 +419,7 @@ export default defineComponent({
       programDoc,
       index,
       populate,
-      ...loading(programDoc.value.update, 'Saved', 'Something went wrong, try again later'),
+      ...loading(programDoc.value.update, 'Success', 'Try again later'),
       date,
       modal,
       date1,
