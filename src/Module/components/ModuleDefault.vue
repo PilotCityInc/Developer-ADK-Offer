@@ -101,16 +101,17 @@
         <v-btn
           class="module-default__row__buttons-reject"
           outlined
+          rounded
           x-large
           depressed
           :disabled="userType === 'stakeholder'"
           >Decline</v-btn
         >
         <v-btn
-          color="green"
-          class="module-default__row__buttons-accept"
+          color="#ae90b0"
+          class="module-default__row__buttons-accept white--text"
           x-large
-          dark
+          rounded
           depressed
           :disabled="userType === 'stakeholder'"
           >Accept</v-btn
