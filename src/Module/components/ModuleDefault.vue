@@ -51,7 +51,14 @@
       </div>
 
       <div class="module-edit__container-table">
-        <Table v-model="programDoc" class="module-default__table-view"></Table>
+        <Table
+          v-model="programDoc"
+          :value="value"
+          :student-doc="studentDoc"
+          :user-type="userType"
+          class="module-default__table-view"
+          @acceptButtonState-to-emit="acceptButtonState"
+        ></Table>
       </div>
 
       <!-- <div class="module-default__row">
@@ -96,37 +103,102 @@
           frameborder="0"
         ></iframe>
       </div>
-
       <div class="module-default__row__buttons">
-        <v-btn
-          class="module-default__row__buttons-reject"
-          outlined
-          rounded
-          x-large
-          depressed
-          :disabled="userType === 'stakeholder'"
-          >Decline</v-btn
-        >
-        <v-btn
-          color="#ae90b0"
-          class="module-default__row__buttons-accept white--text"
-          x-large
-          rounded
-          depressed
-          :disabled="userType === 'stakeholder'"
-          >Accept</v-btn
-        >
-      </div>
+        <div v-show="setUpOffer">
+          <v-dialog v-model="declineOffer" persistent max-width="400px">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                :disabled="userType === 'stakeholder'"
+                v-bind="attrs"
+                x-large
+                color="grey"
+                rounded
+                depressed
+                :ripple="false"
+                outlined
+                class="ml-3 mr-3"
+                v-on="on"
+                >Decline Offer</v-btn
+              >
+            </template>
+            <v-card>
+              <v-card-title class="d-flex flex-column">
+                <div class="overline font-weight-bold">
+                  Are you sure you want to decline the <br />
+                  internship offer?
+                </div>
+              </v-card-title>
 
-      <!-- ENTER CONTENT HERE -->
-      <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING -->
-      <!-- <div class="module-default__none">Design your activity here</div> -->
+              <v-divider></v-divider>
+
+              <v-container class="d-flex justify-center">
+                <div class="d-flex flex-row justify-center mt-3 mb-5">
+                  <v-btn
+                    class="ma-2"
+                    color="red"
+                    dark
+                    x-large
+                    rounded
+                    depressed
+                    @click="declineOffer = false"
+                    >Cancel</v-btn
+                  >
+
+                  <v-btn
+                    class="ma-2"
+                    x-large
+                    dark
+                    color="green"
+                    rounded
+                    depressed
+                    @click="changeThanks"
+                    >Decline Offer</v-btn
+                  >
+                </div>
+              </v-container>
+            </v-card>
+          </v-dialog>
+          <v-btn
+            color="#ae90b0"
+            class="module-default__row__buttons-accept white--text"
+            x-large
+            rounded
+            depressed
+            :disabled="userType === 'stakeholder' || !checkedAllTerms"
+            :loading="loading"
+            @click="process"
+            >Accept</v-btn
+          >
+        </div>
+        <v-alert
+          v-if="success || error"
+          dense
+          class="mt-3 white--text presets__alert"
+          :color="success ? 'green' : 'red'"
+          >{{ message }}</v-alert
+        >
+        <div v-show="rejectedOffer">
+          <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
+            Thank you for participating. <br />
+          </div>
+          <div
+            class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
+          >
+            We will deliver your program results soon.
+          </div>
+        </div>
+
+        <!-- ENTER CONTENT HERE -->
+        <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING -->
+        <!-- <div class="module-default__none">Design your activity here</div> -->
+      </div>
     </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
+import { getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
 import MongoDoc from '../types';
@@ -142,6 +214,10 @@ export default defineComponent({
       required: true,
       type: Object as PropType<MongoDoc>
     },
+    studentDoc: {
+      required: true,
+      type: Object as PropType<MongoDoc>
+    },
     userType: {
       required: true,
       type: String
@@ -152,7 +228,6 @@ export default defineComponent({
   },
 
   setup(props, ctx) {
-    // props
     const programDoc = computed({
       get: () => props.value,
       set: newVal => {
@@ -160,50 +235,57 @@ export default defineComponent({
       }
     });
 
-    // console.log(programDoc.value);
-
     const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
       return obj.name === 'offer';
     });
 
-    const initOfferSetup = {
-      name: 'offer',
-      offer: [
-        {
-          internshipProject1: false,
-          internshipProject2: false,
-          internshipProject3: false,
-          licenseRequirement: '',
-          employerRecord: '',
-          intern: false,
-          fellow: false,
-          eir: false,
-          apprentice: false,
-          preApprentice: false,
-          preInternship: false,
-          continuation: false,
-          compensation1: false,
-          compensation2: false,
-          compensation3: false,
-          compensation4: false,
-          compensation5: false,
-          compensation6: false,
-          minimumBudget: '',
-          maximumBudget: '',
-          internshipStart: '',
-          internshipEnd: '',
-          daysPerWeek: '',
-          hoursPerDay: '',
-          acceptanceDeadline: '',
-          required: false
-        }
-      ]
-    };
+    const { adkData, adkIndex } = getModAdk(
+      props,
+      ctx.emit,
+      'offer',
+      {
+        offerDetails: programDoc.value.data.adks[index].offer
+      },
+      'studentDoc',
+      'inputStudentDoc'
+    );
+    const declineOffer = ref(false);
+    const rejectedOffer = ref(false);
+    const setUpOffer = ref(true);
 
-    programDoc.value.data.adks[index] = {
-      ...initOfferSetup,
-      ...programDoc.value.data.adks[index]
-    };
+    const checkedAllTerms = ref(false);
+
+    function acceptButtonState(payload: any) {
+      checkedAllTerms.value = payload.state;
+    }
+
+    function populate() {
+      setUpOffer.value = false;
+      adkData.value = {
+        ...adkData.value,
+        offerAccepted: true,
+        offerDeclined: false
+      };
+      return props.studentDoc.update(() => ({
+        isComplete: true,
+        adkIndex
+      }));
+    }
+
+    function changeThanks() {
+      setUpOffer.value = false;
+      rejectedOffer.value = true;
+      declineOffer.value = false;
+      adkData.value = {
+        ...adkData.value,
+        offerDeclined: true,
+        offerAccepted: false
+      };
+      return props.studentDoc.update(() => ({
+        isComplete: true,
+        adkIndex
+      }));
+    }
 
     // apollo: {},
     const setupInstructions = ref({
@@ -213,10 +295,19 @@ export default defineComponent({
     const showInstructions = ref(true);
     return {
       setupInstructions,
+      rejectedOffer,
       showInstructions,
       programDoc,
+      setUpOffer,
       index,
-      initOfferSetup
+      populate,
+      adkData,
+      changeThanks,
+      adkIndex,
+      acceptButtonState,
+      checkedAllTerms,
+      declineOffer,
+      ...loading(populate, 'Success', 'Try again later')
     };
   }
 });

@@ -8,8 +8,17 @@
       :items-per-page="100"
       :hide-default-footer="true"
     >
-      <template v-slot:item.complete>
-        <v-checkbox :readonly="userType === 'stakeholder'"></v-checkbox>
+      <template v-slot:item.complete="{ item }">
+        <v-simple-checkbox
+          v-ripple
+          v-model="item.complete"
+          :readonly="userType === 'stakeholder'"
+          @click="
+            checked();
+            $emit('acceptButtonState-to-emit', { state: checkedAllTerms });
+          "
+        >
+        </v-simple-checkbox>
       </template>
     </v-data-table>
   </div>
@@ -26,6 +35,10 @@ export default defineComponent({
     value: {
       required: true,
       type: Object as PropType<MongoDoc>
+    },
+    studentDoc: {
+      required: true,
+      type: Object as () => MongoDoc
     },
     userType: {
       required: true,
@@ -48,7 +61,6 @@ export default defineComponent({
     const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
       return obj.name === 'offer';
     });
-
     const initOfferSetup = {
       name: 'offer',
       offer: [
@@ -153,7 +165,6 @@ export default defineComponent({
     } else {
       employerRecordTerm = 'PilotCity';
     }
-
     if (programDoc.value.data.adks[index].offer[0].intern === true) {
       internTerm = 'Intern,';
     } else {
@@ -249,50 +260,70 @@ export default defineComponent({
     const tableContents = [
       {
         terms: 'Internship Project',
-        questionaries: `${internshipProjectTermMain} ${internshipProjectTerm1} ${internshipProjectTerm2} ${internshipProjectTerm3}`
+        questionaries: `${internshipProjectTermMain} ${internshipProjectTerm1} ${internshipProjectTerm2} ${internshipProjectTerm3}`,
+        complete: false
       },
       {
         terms: 'Drivers License / Car',
-        questionaries: driversLicenseTerm
+        questionaries: driversLicenseTerm,
+        complete: false
       },
       {
         terms: 'Employer-of-Record',
-        questionaries: `I acknowledge ${employerRecordTerm} will be the employer-of-record`
+        questionaries: `I acknowledge ${employerRecordTerm} will be the employer-of-record`,
+        complete: false
       },
       {
         terms: 'Position Title',
-        questionaries: `I acknowledge my position title will be either: ${internTerm} ${fellowTerm} ${eirTerm} ${apprenticeTerm} ${preApprenticeTerm} ${preInternshipTerm}`
+        questionaries: `I acknowledge my position title will be either: ${internTerm} ${fellowTerm} ${eirTerm} ${apprenticeTerm} ${preApprenticeTerm} ${preInternshipTerm}`,
+        complete: false
       },
       {
         terms: 'Continuation Possibility',
-        questionaries: `I acknowledge there ${continuationPossibilityTerm} be a continuation or re-hire possibility`
+        questionaries: `I acknowledge there ${continuationPossibilityTerm} be a continuation or re-hire possibility`,
+        complete: false
       },
       {
         terms: 'Compensation',
-        questionaries: `I acknowledge the following compensation options: ${compensation1Term} ${compensation2Term} ${compensation3Term} ${compensation4Term} ${compensation5Term} ${compensation6Term}`
+        questionaries: `I acknowledge the following compensation options: ${compensation1Term} ${compensation2Term} ${compensation3Term} ${compensation4Term} ${compensation5Term} ${compensation6Term}`,
+        complete: false
       },
       {
         terms: 'Start Date',
-        questionaries: `I acknowledge the start date will be: ${programDoc.value.data.adks[index].offer[0].internshipStart}`
+        questionaries: `I acknowledge the start date will be: ${programDoc.value.data.adks[index].offer[0].internshipStart}`,
+        complete: false
       },
       {
         terms: 'End Date',
-        questionaries: `I acknowledge the end date will be: ${programDoc.value.data.adks[index].offer[0].internshipEnd}`
+        questionaries: `I acknowledge the end date will be: ${programDoc.value.data.adks[index].offer[0].internshipEnd}`,
+        complete: false
       },
       {
         terms: 'Days Per Week',
-        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].daysPerWeek} Per Week`
+        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].daysPerWeek} Per Week`,
+        complete: false
       },
       {
         terms: 'Hours Per Day',
-        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].hoursPerDay} Per Day`
+        questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].hoursPerDay} Per Day`,
+        complete: false
       }
     ];
 
+    const checkedAllTerms = ref(tableContents.every((obj: any) => (obj.complete ? true : null)));
+    function checked() {
+      if (tableContents.every((obj: any) => obj.complete)) {
+        checkedAllTerms.value = true;
+      } else {
+        checkedAllTerms.value = false;
+      }
+    }
     return {
       programDoc,
       header: ref(HEADER),
       tableContents,
+      checkedAllTerms,
+      checked,
       index
       // driversLicenseTerm,
     };

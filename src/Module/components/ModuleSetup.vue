@@ -343,6 +343,13 @@ export default defineComponent({
     value: {
       required: true,
       type: Object as PropType<MongoDoc>
+    },
+    studentDoc: {
+      required: false,
+      type: Object as () => MongoDoc,
+      default: {
+        update: async () => {}
+      }
     }
   },
   setup(props, ctx) {
@@ -353,7 +360,7 @@ export default defineComponent({
       }
     });
 
-    const index = programDoc.value.data.adks.findIndex(function findOfferhObj(obj) {
+    const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
       return obj.name === 'offer';
     });
     const initOfferSetup = {
@@ -419,7 +426,15 @@ export default defineComponent({
       programDoc,
       index,
       populate,
-      ...loading(programDoc.value.update, 'Success', 'Try again later'),
+      ...loading(
+        () =>
+          programDoc.value.update(() => ({
+            isComplete: true,
+            adkIndex: index
+          })),
+        'Success',
+        'Try again later'
+      ),
       date,
       modal,
       date1,

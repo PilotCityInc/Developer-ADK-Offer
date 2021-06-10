@@ -101,7 +101,13 @@
           </div>
         </div>
         <div class="module__page">
-          <component :is="getComponent" v-model="programDoc" :user-type="userType" />
+          <component
+            :is="getComponent"
+            v-model="programDoc"
+            :user-type="userType"
+            :student-doc="studentDoc || { data: { adks: [{ name: 'offer' }] }, update: () => {} }"
+            @inputStudentDoc="$emit(userType === 'participant' ? 'inputStudentDoc' : 'n', $event)"
+          />
         </div>
       </div>
     </div>
@@ -303,6 +309,9 @@ export default defineComponent({
     value: {
       required: true,
       type: Object as PropType<MongoDoc>
+    },
+    studentDoc: {
+      required: true
     },
     userType: {
       required: true,

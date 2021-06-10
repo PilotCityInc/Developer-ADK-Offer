@@ -1,6 +1,11 @@
 <template>
   <v-app>
-    <Module v-model="programDocStub" :user-type="userTypeStub" />
+    <Module
+      v-model="programDocStub"
+      :student-doc="studentDoc"
+      :user-type="userTypeStub"
+      @inputStudentDoc="studentDoc = $event"
+    />
   </v-app>
 </template>
 
@@ -19,7 +24,41 @@ export default defineComponent({
   setup() {
     const programDocStub: Ref<MongoDoc> = ref({
       data: {
-        adks: []
+        adks: [
+          {
+            offer: [
+              {
+                internshipProject1: true,
+                internshipProject2: false,
+                internshipProject3: false,
+                licenseRequirement: 0,
+                employerRecord: 0,
+                intern: true,
+                fellow: true,
+                eir: false,
+                apprentice: false,
+                preApprentice: false,
+                preInternship: false,
+                continuation: 0,
+                compensation1: false,
+                compensation2: false,
+                compensation3: false,
+                compensation4: true,
+                compensation5: false,
+                compensation6: true,
+                minimumBudget: '$1,000',
+                maximumBudget: '$5,000',
+                internshipStart: '2021-06-21',
+                internshipEnd: '2021-08-06',
+                daysPerWeek: '5 Days (Recommended)',
+                hoursPerDay: '7 Hours (Recommended)',
+                acceptanceDeadline: '2021-06-11',
+                required: false
+              }
+            ],
+            name: 'offer'
+          }
+        ]
       },
       update: () => {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -32,11 +71,26 @@ export default defineComponent({
       },
       changeStream: {}
     });
-    const userTypeStub = 'organizer';
-
+    const studentDoc: Ref<MongoDoc> = ref({
+      data: {
+        adks: []
+      },
+      update: () => {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(true);
+            // reject(new Error('REJECTED'));
+          }, 3000);
+        });
+      },
+      changeStream: {}
+    });
+    const userTypeStub = 'participant';
+    if (userTypeStub === 'organizer') studentDoc.value = null;
     return {
       programDocStub,
-      userTypeStub
+      userTypeStub,
+      studentDoc
     };
   }
 });
