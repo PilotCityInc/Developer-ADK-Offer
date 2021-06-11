@@ -377,7 +377,7 @@ export default defineComponent({
           apprentice: false,
           preApprentice: false,
           preInternship: false,
-          continuation: 0,
+          continuation: false,
           compensation1: false,
           compensation2: false,
           compensation3: false,
@@ -391,7 +391,8 @@ export default defineComponent({
           daysPerWeek: '5 Days (Recommended)',
           hoursPerDay: '7 Hours (Recommended)',
           acceptanceDeadline: '2021-06-11',
-          required: false
+          required: false,
+          roles: []
         }
       ]
     };

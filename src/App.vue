@@ -39,13 +39,13 @@ export default defineComponent({
                 apprentice: false,
                 preApprentice: false,
                 preInternship: false,
-                continuation: 0,
+                continuation: true,
                 compensation1: false,
                 compensation2: false,
                 compensation3: false,
                 compensation4: true,
                 compensation5: false,
-                compensation6: true,
+                compensation6: false,
                 minimumBudget: '$1,000',
                 maximumBudget: '$5,000',
                 internshipStart: '2021-06-21',
@@ -53,7 +53,8 @@ export default defineComponent({
                 daysPerWeek: '5 Days (Recommended)',
                 hoursPerDay: '7 Hours (Recommended)',
                 acceptanceDeadline: '2021-06-11',
-                required: false
+                required: false,
+                roles: []
               }
             ],
             name: 'offer'

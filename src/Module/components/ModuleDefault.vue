@@ -261,8 +261,22 @@ export default defineComponent({
 
     function populate() {
       setUpOffer.value = false;
-      adkData.value = {
-        ...adkData.value,
+      adkData.value.offerDetails = {
+        compensation: adkData.value.offerDetails[0].compensation,
+        minimumBudget: adkData.value.offerDetails[0].minimumBudget,
+        maximumBudget: adkData.value.offerDetails[0].maximumBudget,
+        internshipStart: adkData.value.offerDetails[0].internshipStart,
+        internshipEnd: adkData.value.offerDetails[0].internshipEnd,
+        licenseRequirement:
+          adkData.value.offerDetails[0].licenseRequirement === 0
+            ? 'license and/or car needed'
+            : 'license not needed',
+        internshipProject: adkData.value.offerDetails[0].internshipProject,
+        employer: adkData.value.offerDetails[0].employer,
+        roles: adkData.value.offerDetails[0].roles,
+        continuation: adkData.value.offerDetails[0].continue,
+        daysPerWeek: adkData.value.offerDetails[0].daysPerWeek.split(' ')[0],
+        hoursPerDay: adkData.value.offerDetails[0].hoursPerDay.split(' ')[0],
         offerAccepted: true,
         offerDeclined: false
       };
@@ -276,8 +290,22 @@ export default defineComponent({
       setUpOffer.value = false;
       rejectedOffer.value = true;
       declineOffer.value = false;
-      adkData.value = {
-        ...adkData.value,
+      adkData.value.offerDetails = {
+        compensation: adkData.value.offerDetails[0].compensation,
+        minimumBudget: adkData.value.offerDetails[0].minimumBudget,
+        maximumBudget: adkData.value.offerDetails[0].maximumBudget,
+        internshipStart: adkData.value.offerDetails[0].internshipStart,
+        internshipEnd: adkData.value.offerDetails[0].internshipEnd,
+        licenseRequirement:
+          adkData.value.offerDetails[0].licenseRequirement === 0
+            ? 'license and/or car needed'
+            : 'license not needed',
+        internshipProject: adkData.value.offerDetails[0].internshipProject,
+        employer: adkData.value.offerDetails[0].employer,
+        roles: adkData.value.offerDetails[0].roles,
+        continuation: adkData.value.offerDetails[0].continue,
+        daysPerWeek: adkData.value.offerDetails[0].daysPerWeek.split(' ')[0],
+        hoursPerDay: adkData.value.offerDetails[0].hoursPerDay.split(' ')[0],
         offerDeclined: true,
         offerAccepted: false
       };

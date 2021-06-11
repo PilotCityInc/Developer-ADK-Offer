@@ -61,44 +61,6 @@ export default defineComponent({
     const index = programDoc.value.data.adks.findIndex(function findOfferObj(obj) {
       return obj.name === 'offer';
     });
-    const initOfferSetup = {
-      name: 'offer',
-      offer: [
-        {
-          internshipProject1: false,
-          internshipProject2: false,
-          internshipProject3: false,
-          licenseRequirement: 1,
-          employerRecord: '',
-          intern: false,
-          fellow: false,
-          eir: false,
-          apprentice: false,
-          preApprentice: false,
-          preInternship: false,
-          continuation: false,
-          compensation1: false,
-          compensation2: false,
-          compensation3: false,
-          compensation4: false,
-          compensation5: false,
-          compensation6: false,
-          minimumBudget: '',
-          maximumBudget: '',
-          internshipStart: '',
-          internshipEnd: '',
-          daysPerWeek: '',
-          hoursPerDay: '',
-          acceptanceDeadline: '',
-          required: false
-        }
-      ]
-    };
-
-    programDoc.value.data.adks[index] = {
-      ...initOfferSetup,
-      ...programDoc.value.data.adks[index]
-    };
 
     let internshipProjectTerm1 = '';
     let internshipProjectTerm2 = '';
@@ -132,7 +94,9 @@ export default defineComponent({
 
     if (programDoc.value.data.adks[index].offer[0].internshipProject1 === true) {
       internshipProjectTerm1 =
-        'further prototype and pilot your carry-over project and/or complete assigned tasks & projects;';
+        'further prototype and pilot your carry-over project and/or complete assigned tasks & projects';
+      programDoc.value.data.adks[index].offer[0].internshipProject =
+        'Further prototype and pilot carry-over project and/or complete assigned tasks & projects';
     } else {
       internshipProjectTerm1 = '';
     }
@@ -140,7 +104,9 @@ export default defineComponent({
     // console.log(programDoc.value.data.adks[index].offer.internshipProject1);
 
     if (programDoc.value.data.adks[index].offer[0].internshipProject2 === true) {
-      internshipProjectTerm2 = 'or will be to further prototype and pilot your carry-over project;';
+      internshipProjectTerm2 = 'or will be to further prototype and pilot your carry-over project';
+      programDoc.value.data.adks[index].offer[0].internshipProject =
+        'Further prototype and pilot carry-over project';
     } else {
       internshipProjectTerm2 = '';
     }
@@ -148,6 +114,8 @@ export default defineComponent({
     if (programDoc.value.data.adks[index].offer[0].internshipProject3 === true) {
       internshipProjectTerm3 =
         'or will be to further prototype, pilot and/or productize your carry-over project';
+      programDoc.value.data.adks[index].offer[0].internshipProject =
+        'Further prototype, pilot and/or productize your carry-over project';
     } else {
       internshipProjectTerm3 = '';
     }
@@ -162,78 +130,94 @@ export default defineComponent({
 
     if (programDoc.value.data.adks[index].offer[0].employerRecord === 1) {
       employerRecordTerm = 'the employer';
+      programDoc.value.data.adks[index].offer[0].employer = 'the employer';
     } else {
       employerRecordTerm = 'PilotCity';
+      programDoc.value.data.adks[index].offer[0].employer = 'PilotCity';
     }
     if (programDoc.value.data.adks[index].offer[0].intern === true) {
       internTerm = 'Intern,';
+      programDoc.value.data.adks[index].offer[0].roles.push('Intern');
     } else {
       internTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].fellow === true) {
       fellowTerm = 'Fellow,';
+      programDoc.value.data.adks[index].offer[0].roles.push('Fellow');
     } else {
       fellowTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].eir === true) {
       eirTerm = 'Entreprenur in Residence,';
+      programDoc.value.data.adks[index].offer[0].roles.push('Entrprenur in Residence');
     } else {
       eirTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].apprentice === true) {
       apprenticeTerm = 'Apprentice,';
+      programDoc.value.data.adks[index].offer[0].roles.push('Apprentice');
     } else {
       apprenticeTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].preApprentice === true) {
       preApprenticeTerm = 'Pre-Apprentice,';
+      programDoc.value.data.adks[index].offer[0].roles.push('Pre-Apprentice');
     } else {
       preApprenticeTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].preInternship === true) {
       preInternshipTerm = 'Pre-Internship';
+      programDoc.value.data.adks[index].offer[0].roles.push('Pre-Internship');
     } else {
       preInternshipTerm = '';
     }
 
     if (programDoc.value.data.adks[index].offer[0].continuation === false) {
       continuationPossibilityTerm = 'will NOT';
+      programDoc.value.data.adks[index].offer[0].continue = false;
     } else {
+      programDoc.value.data.adks[index].offer[0].continue = true;
       continuationPossibilityTerm = 'may';
     }
 
     if (programDoc.value.data.adks[index].offer[0].compensation1 === true) {
       compensation1Term = '$250,';
+      programDoc.value.data.adks[index].offer[0].compensation = '$250';
     } else {
       compensation1Term = '';
     }
     if (programDoc.value.data.adks[index].offer[0].compensation2 === true) {
       compensation2Term = '$350,';
+      programDoc.value.data.adks[index].offer[0].compensation = '$350';
     } else {
       compensation2Term = '';
     }
     if (programDoc.value.data.adks[index].offer[0].compensation3 === true) {
       compensation3Term = '$500,';
+      programDoc.value.data.adks[index].offer[0].compensation = '$500';
     } else {
       compensation3Term = '';
     }
     if (programDoc.value.data.adks[index].offer[0].compensation4 === true) {
       compensation4Term = '$595,';
+      programDoc.value.data.adks[index].offer[0].compensation = '$595';
     } else {
       compensation4Term = '';
     }
     if (programDoc.value.data.adks[index].offer[0].compensation5 === true) {
       compensation5Term = 'W2 Employee,';
+      programDoc.value.data.adks[index].offer[0].compensation = 'W2 Employee';
     } else {
       compensation5Term = '';
     }
     if (programDoc.value.data.adks[index].offer[0].compensation6 === true) {
       compensation6Term = 'Unpaid ($0)';
+      programDoc.value.data.adks[index].offer[0].compensation = 'Unpaid ($0)';
     } else {
       compensation6Term = '';
     }
