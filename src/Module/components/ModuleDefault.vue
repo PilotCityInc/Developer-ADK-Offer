@@ -164,7 +164,7 @@
             x-large
             rounded
             depressed
-            :disabled="userType === 'stakeholder' || !checkedAllTerms"
+            :disabled="userType === 'stakeholder' || !allTermsChecked"
             :loading="loading"
             @click="process"
             >Accept</v-btn
@@ -177,7 +177,7 @@
           :color="success ? 'green' : 'red'"
           >{{ message }}</v-alert
         >
-        <div v-show="rejectedOffer">
+        <div v-show="declinedOffer">
           <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
             Thank you for participating. <br />
           </div>
@@ -250,36 +250,18 @@ export default defineComponent({
       'inputStudentDoc'
     );
     const declineOffer = ref(false);
-    const rejectedOffer = ref(false);
+    const declinedOffer = ref(false);
     const setUpOffer = ref(true);
 
-    const checkedAllTerms = ref(false);
+    const allTermsChecked = ref(false);
 
     function acceptButtonState(payload: any) {
-      checkedAllTerms.value = payload.state;
+      allTermsChecked.value = payload.state;
     }
 
     function populate() {
       setUpOffer.value = false;
-      adkData.value.offerDetails = {
-        compensation: adkData.value.offerDetails[0].compensation,
-        minimumBudget: adkData.value.offerDetails[0].minimumBudget,
-        maximumBudget: adkData.value.offerDetails[0].maximumBudget,
-        internshipStart: adkData.value.offerDetails[0].internshipStart,
-        internshipEnd: adkData.value.offerDetails[0].internshipEnd,
-        licenseRequirement:
-          adkData.value.offerDetails[0].licenseRequirement === 0
-            ? 'license and/or car needed'
-            : 'license not needed',
-        internshipProject: adkData.value.offerDetails[0].internshipProject,
-        employer: adkData.value.offerDetails[0].employer,
-        roles: adkData.value.offerDetails[0].roles,
-        continuation: adkData.value.offerDetails[0].continue,
-        daysPerWeek: adkData.value.offerDetails[0].daysPerWeek.split(' ')[0],
-        hoursPerDay: adkData.value.offerDetails[0].hoursPerDay.split(' ')[0],
-        offerAccepted: true,
-        offerDeclined: false
-      };
+      adkData.value.offerDetails[0].offerStatus = true;
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -288,27 +270,9 @@ export default defineComponent({
 
     function changeThanks() {
       setUpOffer.value = false;
-      rejectedOffer.value = true;
+      declinedOffer.value = true;
       declineOffer.value = false;
-      adkData.value.offerDetails = {
-        compensation: adkData.value.offerDetails[0].compensation,
-        minimumBudget: adkData.value.offerDetails[0].minimumBudget,
-        maximumBudget: adkData.value.offerDetails[0].maximumBudget,
-        internshipStart: adkData.value.offerDetails[0].internshipStart,
-        internshipEnd: adkData.value.offerDetails[0].internshipEnd,
-        licenseRequirement:
-          adkData.value.offerDetails[0].licenseRequirement === 0
-            ? 'license and/or car needed'
-            : 'license not needed',
-        internshipProject: adkData.value.offerDetails[0].internshipProject,
-        employer: adkData.value.offerDetails[0].employer,
-        roles: adkData.value.offerDetails[0].roles,
-        continuation: adkData.value.offerDetails[0].continue,
-        daysPerWeek: adkData.value.offerDetails[0].daysPerWeek.split(' ')[0],
-        hoursPerDay: adkData.value.offerDetails[0].hoursPerDay.split(' ')[0],
-        offerDeclined: true,
-        offerAccepted: false
-      };
+      adkData.value.offerDetails[0].offerStatus = false;
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -323,7 +287,7 @@ export default defineComponent({
     const showInstructions = ref(true);
     return {
       setupInstructions,
-      rejectedOffer,
+      declinedOffer,
       showInstructions,
       programDoc,
       setUpOffer,
@@ -333,7 +297,7 @@ export default defineComponent({
       changeThanks,
       adkIndex,
       acceptButtonState,
-      checkedAllTerms,
+      allTermsChecked,
       declineOffer,
       ...loading(populate, 'Success', 'Try again later')
     };

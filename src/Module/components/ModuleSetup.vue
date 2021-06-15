@@ -391,8 +391,7 @@ export default defineComponent({
           daysPerWeek: '5 Days (Recommended)',
           hoursPerDay: '7 Hours (Recommended)',
           acceptanceDeadline: '2021-06-11',
-          required: false,
-          roles: []
+          required: false
         }
       ]
     };
