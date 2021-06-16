@@ -277,9 +277,9 @@ export default defineComponent({
     }
 
     function changeThanks() {
-      state.setUpOffer.value = false;
-      state.declinedOffer.value = true;
-      state.declineOffer.value = false;
+      state.setUpOffer = false;
+      state.declinedOffer = true;
+      state.declineOffer = false;
       state.offerStatus = false;
       adkData.value = {
         ...adkData.value,
