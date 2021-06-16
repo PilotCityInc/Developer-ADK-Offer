@@ -12,7 +12,6 @@
         <v-simple-checkbox
           v-model="item.complete"
           v-ripple
-          :disabled="offerCompleted"
           :readonly="userType === 'stakeholder'"
           @click="
             checked();
@@ -48,12 +47,6 @@ export default defineComponent({
       // organizer: '',
       // stakeholder: ''
     },
-    offerCompleted: {
-      type: Boolean || null
-    },
-    offerStatus: {
-      type: Boolean || null
-    }
   },
 
   setup(props, ctx) {
@@ -230,52 +223,52 @@ export default defineComponent({
       {
         terms: 'Internship Project',
         questionaries: `${internshipProjectTermMain} ${internshipProjectTerm1} ${internshipProjectTerm2} ${internshipProjectTerm3}`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Drivers License / Car',
         questionaries: driversLicenseTerm,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Employer-of-Record',
         questionaries: `I acknowledge ${employerRecordTerm} will be the employer-of-record`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Position Title',
         questionaries: `I acknowledge my position title will be either: ${internTerm} ${fellowTerm} ${eirTerm} ${apprenticeTerm} ${preApprenticeTerm} ${preInternshipTerm}`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Continuation Possibility',
         questionaries: `I acknowledge there ${continuationPossibilityTerm} be a continuation or re-hire possibility`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Compensation',
         questionaries: `I acknowledge the following compensation options: ${compensation1Term} ${compensation2Term} ${compensation3Term} ${compensation4Term} ${compensation5Term} ${compensation6Term}`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Start Date',
         questionaries: `I acknowledge the start date will be: ${programDoc.value.data.adks[index].offer[0].internshipStart}`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'End Date',
         questionaries: `I acknowledge the end date will be: ${programDoc.value.data.adks[index].offer[0].internshipEnd}`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Days Per Week',
         questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].daysPerWeek} Per Week`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       },
       {
         terms: 'Hours Per Day',
         questionaries: `I acknowledge I will work up to: ${programDoc.value.data.adks[index].offer[0].hoursPerDay} Per Day`,
-        complete: props.offerStatus && props.offerCompleted ? true : null
+        complete: false
       }
     ];
 
