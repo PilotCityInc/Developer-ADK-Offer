@@ -56,8 +56,6 @@
           :value="value"
           :student-doc="studentDoc"
           :user-type="userType"
-          :offer-completed="offerCompleted"
-          :offer-status="offerStatus"
           class="module-default__table-view"
           @acceptButtonState-to-emit="acceptButtonState"
         ></Table>
@@ -106,7 +104,7 @@
         ></iframe>
       </div>
       <div class="module-default__row__buttons">
-        <div v-show="setUpOffer && !offerCompleted">
+        <div v-show="setUpOffer">
           <v-dialog v-model="declineOffer" persistent max-width="400px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -172,23 +170,24 @@
             >Accept</v-btn
           >
         </div>
-        <div v-show="acceptedOffer || (offerCompleted && offerStatus)">
-          <div class="justify-center d-flex mt-12"></div>
-          <div class="module-default__statement3 headline font-weight-bold mt-6 justify-center">
-            Congratulations on accepting your offer!
-          </div>
-          <div class="d-flex justify-center mb-12"></div>
-        </div>
-        <div v-show="declinedOffer || (offerCompleted && !offerStatus)">
-          <div class="module-default__statement3 headline font-weight-bold mt-6 justify-center">
+        <v-alert
+          v-if="success || error"
+          dense
+          class="mt-3 white--text presets__alert"
+          :color="success ? 'green' : 'red'"
+          >{{ message }}</v-alert
+        >
+        <div v-show="declinedOffer">
+          <div class="module-default__statement1 headline font-weight-bold mt-6 justify-center">
             Thank you for participating. <br />
           </div>
           <div
-            class="module-default__statement4 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
+            class="module-default__statement2 headline font-weight-medium justify-center mt-6 ml-12 mr-12"
           >
             We will deliver your program results soon.
           </div>
         </div>
+
         <!-- ENTER CONTENT HERE -->
         <!-- DESIGN YOUR ACTIVITY HERE / COMMENT OUT WHEN YOU'VE STARTED DESIGNING -->
         <!-- <div class="module-default__none">Design your activity here</div> -->
@@ -252,15 +251,15 @@ export default defineComponent({
     );
 
     const state = reactive({
-      offerStatus: adkData.value.offerStatus ? true : null
+      ...adkData.value,
+      offerStatus: false
     });
 
-    const offerCompleted = ref(adkData.value.completed ? true : null);
     const allTermsChecked = ref(false);
     const setUpOffer = ref(true);
     const declineOffer = ref(false);
     const declinedOffer = ref(false);
-    const acceptedOffer = ref(false);
+
     function acceptButtonState(payload: any) {
       allTermsChecked.value = payload.state;
     }
@@ -268,8 +267,6 @@ export default defineComponent({
     function populate() {
       setUpOffer.value = false;
       state.offerStatus = true;
-      acceptedOffer.value = true;
-      offerCompleted.value = true;
       adkData.value = {
         ...adkData.value,
         offerStatus: state.offerStatus
@@ -282,11 +279,9 @@ export default defineComponent({
 
     function changeThanks() {
       setUpOffer.value = false;
-      offerCompleted.value = true;
       declinedOffer.value = true;
       declineOffer.value = false;
       state.offerStatus = false;
-      acceptedOffer.value = false;
       adkData.value = {
         ...adkData.value,
         offerStatus: state.offerStatus
@@ -309,12 +304,10 @@ export default defineComponent({
       programDoc,
       index,
       declinedOffer,
-      offerCompleted,
       allTermsChecked,
       declineOffer,
       setUpOffer,
       populate,
-      acceptedOffer,
       ...toRefs(state),
       adkData,
       changeThanks,
@@ -328,14 +321,6 @@ export default defineComponent({
 
 <style lang="scss">
 .module-default {
-  &__statement3 {
-    text-align: center;
-    color: #ae90b0;
-  }
-  &__statement4 {
-    text-align: center;
-    color: #d3d3d3;
-  }
   &__row__buttons {
     // justify-content: center;
     text-align: center;
