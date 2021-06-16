@@ -252,19 +252,20 @@ export default defineComponent({
 
     const state = reactive({
       ...adkData.value,
-      offerStatus: false,
-      setUpOffer: true,
-      declinedOffer: false,
-      declineOffer: false,
-      allTermsChecked: false
+      offerStatus: false
     });
 
+    const allTermsChecked = ref(false);
+    const setUpOffer = ref(true);
+    const declineOffer = ref(false);
+    const declinedOffer = ref(false);
+
     function acceptButtonState(payload: any) {
-      state.allTermsChecked = payload.state;
+      allTermsChecked.value = payload.state;
     }
 
     function populate() {
-      state.setUpOffer = false;
+      setUpOffer.value = false;
       state.offerStatus = true;
       adkData.value = {
         ...adkData.value,
@@ -277,9 +278,9 @@ export default defineComponent({
     }
 
     function changeThanks() {
-      state.setUpOffer = false;
-      state.declinedOffer = true;
-      state.declineOffer = false;
+      setUpOffer.value = false;
+      declinedOffer.value = true;
+      declineOffer.value = false;
       state.offerStatus = false;
       adkData.value = {
         ...adkData.value,
@@ -302,6 +303,10 @@ export default defineComponent({
       showInstructions,
       programDoc,
       index,
+      declinedOffer,
+      allTermsChecked,
+      declineOffer,
+      setUpOffer,
       populate,
       ...toRefs(state),
       adkData,
