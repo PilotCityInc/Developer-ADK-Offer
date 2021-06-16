@@ -283,7 +283,7 @@ export default defineComponent({
       state.offerStatus = false;
       adkData.value = {
         ...adkData.value,
-        ...state
+        offerStatus: state.offerStatus
       };
       return props.studentDoc.update(() => ({
         isComplete: true,
