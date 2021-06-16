@@ -172,13 +172,6 @@
             >Accept</v-btn
           >
         </div>
-        <v-alert
-          v-if="success || error"
-          dense
-          class="mt-3 white--text presets__alert"
-          :color="success ? 'green' : 'red'"
-          >{{ message }}</v-alert
-        >
         <div v-show="acceptedOffer || (offerCompleted && offerStatus)">
           <div class="justify-center d-flex mt-12"></div>
           <div class="module-default__statement3 headline font-weight-bold mt-6 justify-center">
