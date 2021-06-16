@@ -197,7 +197,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed, PropType } from '@vue/composition-api';
+import { defineComponent, ref, computed, PropType, reactive, toRefs } from '@vue/composition-api';
 import { getModAdk, loading } from 'pcv4lib/src';
 import Instruct from './ModuleInstruct.vue';
 import Table from './TableView.vue';
@@ -249,19 +249,27 @@ export default defineComponent({
       'studentDoc',
       'inputStudentDoc'
     );
-    const declineOffer = ref(false);
-    const declinedOffer = ref(false);
-    const setUpOffer = ref(true);
 
-    const allTermsChecked = ref(false);
+    const state = reactive({
+      ...adkData.value,
+      offerStatus: false,
+      setUpOffer: true,
+      declinedOffer: false,
+      declineOffer: false,
+      allTermsChecked: false
+    });
 
     function acceptButtonState(payload: any) {
-      allTermsChecked.value = payload.state;
+      state.allTermsChecked = payload.state;
     }
 
     function populate() {
-      setUpOffer.value = false;
-      adkData.value.offerDetails[0].offerStatus = true;
+      state.setUpOffer = false;
+      state.offerStatus = true;
+      adkData.value = {
+        ...adkData.value,
+        offerStatus: state.offerStatus
+      };
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -269,10 +277,14 @@ export default defineComponent({
     }
 
     function changeThanks() {
-      setUpOffer.value = false;
-      declinedOffer.value = true;
-      declineOffer.value = false;
-      adkData.value.offerDetails[0].offerStatus = false;
+      state.setUpOffer.value = false;
+      state.declinedOffer.value = true;
+      state.declineOffer.value = false;
+      state.offerStatus = false;
+      adkData.value = {
+        ...adkData.value,
+        ...state
+      };
       return props.studentDoc.update(() => ({
         isComplete: true,
         adkIndex
@@ -287,18 +299,15 @@ export default defineComponent({
     const showInstructions = ref(true);
     return {
       setupInstructions,
-      declinedOffer,
       showInstructions,
       programDoc,
-      setUpOffer,
       index,
       populate,
+      ...toRefs(state),
       adkData,
       changeThanks,
       adkIndex,
       acceptButtonState,
-      allTermsChecked,
-      declineOffer,
       ...loading(populate, 'Success', 'Try again later')
     };
   }
